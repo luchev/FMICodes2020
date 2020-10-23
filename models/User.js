@@ -10,24 +10,15 @@ const userSchema = new mongoose.Schema({
   emailVerificationToken: String,
   emailVerified: Boolean,
 
-  snapchat: String,
   facebook: String,
-  twitter: String,
   google: String,
-  github: String,
-  instagram: String,
-  linkedin: String,
-  steam: String,
-  twitch: String,
-  quickbooks: String,
   tokens: Array,
 
-  profile: {
-    name: String,
-    gender: String,
-    location: String,
-    website: String,
-    picture: String
+  restaurantExtension: {
+    restaurantName : String, 
+    xCoordinate: Number,
+    yCoordinate: Number,
+    address: String
   }
 }, { timestamps: true });
 
