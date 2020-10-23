@@ -33,6 +33,7 @@ const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
+const orderController = require('./controllers/order')
 
 /**
  * API keys and Passport configuration.
@@ -92,7 +93,8 @@ app.use((req, res, next) => {
     // Multer multipart/form-data handling needs to occur before the Lusca CSRF check.
     next();
   } else {
-    lusca.csrf()(req, res, next);
+    next();
+    //lusca.csrf()(req, res, next);
   }
 });
 app.use(lusca.xframe('SAMEORIGIN'));
@@ -136,6 +138,8 @@ app.get('/reset/:token', userController.getReset);
 app.post('/reset/:token', userController.postReset);
 app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
+app.get('/order/:id', orderController.getOrder);
+app.post('/order', orderController.postOrder);
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
 app.get('/account/verify', passportConfig.isAuthenticated, userController.getVerifyEmail);
