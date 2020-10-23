@@ -8,7 +8,7 @@ block content
   body.bg-image
     .row
       .col-md-5
-        .card.mt-4.p-2.bg-info.text-white
+        .card.mt-4.mb-2.p-2.text-white(style="border-radius: 0.8rem; box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); background: linear-gradient(40deg,#ffd86f,#fc6262) !important; opacity: .95;")
           .card-body
             h2.card-title Extra Meal
             .p.card-text.h4
@@ -25,19 +25,16 @@ block content
               | text
               <br>
               | text
-              <br>
-              | text
-              <br>
-              | text
-              <br>
-              | text
-              <br>
-              | text
-    .row
-      .col-md-10.mr-1.mt-4
-        form.form-inline.d-flex.md-form.form-sm.active-cyan-2.mt-2
-          input.form-control.form-control-sm.mr-3.w-75(type="text", placeholder="Search", aria-label="Search")
-          i.fas.fa-search(aria-hidden="true")
+    .row.mt-4
+      .col-12.col-md-12.Zcol-lg-12  
+        //- form.card.card-sm(style="box-shadow: 0 0 15px black;")
+        .card-body.p-0.row.no-gutters.align-items-center
+          .col
+            input.form-control.form-control-lg.form-control-borderless(type="search", placeholder="Search topics or keywords", style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);")
+          .col-auto
+            button.btn.ml-3.text-white.fas.fa-search(type="submit", style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); border-radius: 0.3rem; height: calc(1.5em + 1rem + 2px);padding: 0.5rem 1rem;font-size: 1.25rem;line-height: 1.5; background: linear-gradient(40deg,#ffd86f,#fc6262) !important;")
+            
+            
 
 
 
