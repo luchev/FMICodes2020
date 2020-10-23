@@ -14,12 +14,11 @@ const userSchema = new mongoose.Schema({
   google: String,
   tokens: Array,
 
-  profile: {
-    name: String,
-    gender: String,
-    location: String,
-    website: String,
-    picture: String
+  restaurantExtension: {
+    restaurantName : String, 
+    xCoordinate: Number,
+    yCoordinate: Number,
+    address: String
   }
 }, { timestamps: true });
 
