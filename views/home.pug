@@ -1,27 +1,65 @@
 extends layout
 
+block head
+  link(res='stylesheet' href='../public/css/homepage.css')
+
 block content
-  h1 Hackathon Starter
-  p.lead A boilerplate for Node.js web applications.
-  hr
-  .row
-    .col-md-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      p
-        a.btn.btn-raised(href='#', role='button') View details »
-    .col-md-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      p
-        a.btn.btn-raised(href='#', role='button') View details »
-    .col-md-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      p
-        a.btn.btn-raised(href='#', role='button') View details »
-    .col-md-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      p
-        a.btn.btn-raised(href='#', role='button') View details »
+
+  body.bg-image
+    .row
+      .col-md-5
+        .card.mt-4.p-2.bg-info.text-white
+          .card-body
+            h2.card-title Extra Meal
+            .p.card-text.h4
+              | Some text starting here
+              <br>
+              | text
+              <br>
+              | text
+              <br>
+              | text
+              <br>
+              | text
+              <br>
+              | text
+              <br>
+              | text
+              <br>
+              | text
+              <br>
+              | text
+              <br>
+              | text
+              <br>
+              | text
+    .row
+      .col-md-10.mr-1.mt-4
+        form.form-inline.d-flex.md-form.form-sm.active-cyan-2.mt-2
+          input.form-control.form-control-sm.mr-3.w-75(type="text", placeholder="Search", aria-label="Search")
+          i.fas.fa-search(aria-hidden="true")
+
+
+
+  //- h1 Get cheap food. Help the environment.
+  //- .row
+  //-   .col-md-3
+  //-     h2 Heading
+  //-     p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+  //-     p
+  //-       a.btn.btn-raised(href='#', role='button') View details »
+  //-   .col-md-3
+  //-     h2 Heading
+  //-     p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+  //-     p
+  //-       a.btn.btn-raised(href='#', role='button') View details »
+  //-   .col-md-3
+  //-     h2 Heading
+  //-     p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+  //-     p
+  //-       a.btn.btn-raised(href='#', role='button') View details »
+  //-   .col-md-3
+  //-     h2 Heading
+  //-     p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+  //-     p
+  //-       a.btn.btn-raised(href='#', role='button') View details »
