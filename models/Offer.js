@@ -1,3 +1,4 @@
+const {Timestamp} = require( 'mongodb' );
 const mongoose = require('mongoose');
 const User = require('../models/User');
 
@@ -7,6 +8,7 @@ const offerSchema = new mongoose.Schema({
     ref: User.name 
   },
 
+  title: String,
   offer: String,
   price: Number,
   count: Number,

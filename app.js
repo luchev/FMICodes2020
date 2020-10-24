@@ -160,7 +160,9 @@ app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userControl
 app.get('/offers/:id', offersController.getOffer);
 app.get('/offers', offersController.getOffers);
 
-app.get('/restaurants/:id', restaurantController.getRestaurant)
+app.get('/restaurants/:id', restaurantController.getRestaurant);
+app.post( '/restaurants/:id', restaurantController.postRestaurant );
+
 
 /**
  * API examples routes.
