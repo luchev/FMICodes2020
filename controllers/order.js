@@ -2,6 +2,8 @@ const Order = require('../models/Order');
 const Offer = require('../models/Offer')
 const validator = require('validator');
 const User = require('../models/User');
+const { Callbacks } = require('jquery');
+const { callbackPromise } = require('nodemailer/lib/shared');
 /**
  * GET /orders
  */
@@ -89,24 +91,41 @@ exports.getOrderById = (req, res) => {
 /**
  * POST /order
  */
-exports.postOrder = (req, res) => {
-    const validationErrors = [];
-    if (validator.isEmpty(req.body.userId)) validationErrors.push({ msg: 'userId cannot be blank.' });
-    if (validator.isEmpty(req.body.restaurantId)) validationErrors.push({ msg: 'restaurantId cannot be blank.' });
-    if (validator.isEmpty(req.body.offerId)) validationErrors.push({ msg: 'offerId cannot be blank.' });
-    if (validationErrors.length) {
-        req.flash('errors', validationErrors);
-    }
+exports.postOrder = async (req, res) => {
+  const validationErrors = [];
+  if (validator.isEmpty(req.body.userId)) validationErrors.push({ msg: 'userId cannot be blank.' });
+  if (validator.isEmpty(req.body.restaurantId)) validationErrors.push({ msg: 'restaurantId cannot be blank.' });
+  if (validator.isEmpty(req.body.offerId)) validationErrors.push({ msg: 'offerId cannot be blank.' });
+  let offer
+  await Offer.findById(req.body.offerId, (err, foundOffer) => {
+    if (err) { return done(err); }
+    offer = foundOffer;
+  });
+  console.log(offer)
+
+  var currentTime = new Date();
+  if(currentTime >= offer.endTime) {
+    validationErrors.push({ msg: 'The offer has already expired.' });
+  }
+  if(offer.count <= 0) {
+    validationErrors.push({ msg: 'The offer was already sold out.' });
+  }
+
+  if (validationErrors.length) {
+    console.log('in the right place');
+    res.send(400, validationErrors);
+  }
+  else {
     const order = new Order({
       user: req.body.userId,
       restaurant: req.body.restaurantId,
       offer: req.body.offerId,
       state: 'active'
     }); 
-    order.save(function(err, doc) {
-      if (err) {
-        console.log(err);
-      }
-    }); 
+    var newCount = offer.count - 1;
+    await Offer.updateOne( {_id: req.body.offerId}, {count: newCount});
+    order.save();
   };
+  res.send(200);
+}
   
