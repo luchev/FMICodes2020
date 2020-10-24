@@ -21,15 +21,21 @@ block content
         //- form.card.card-sm(style="box-shadow: 0 0 15px black;")
         .card-body.p-0.row.no-gutters.align-items-center
           .col
-            input.form-control.form-control-lg.form-control-borderless.shadow-15p-7(type="search", placeholder="Search topics or keywords")
+            input.form-control.form-control-lg.form-control-borderless.shadow-15p-7(type="search", placeholder="Search topics or keywords", id="searchOffers")
+          script.
+            openOffers = () => {
+              let searchText = document.getElementById("searchOffers").value;
+               
+              window.location.href= searchText ? '/offers?search=' + searchText : '/offers'; 
+            }
           .col-auto
-            button.btn.ml-3.mr-0.text-white.fas.fa-search.shadow-15p-7.gradient-symbol-button(type="submit")
+            button.btn.ml-3.mr-0.text-white.fas.fa-search.shadow-15p-7.gradient-symbol-button(type="submit", onclick="openOffers()")
             button.btn.ml-3.text-white.fas.fa-map.shadow-15p-7.gradient-symbol-button(type="submit", href="#", data-toggle="modal", data-target="#modal-map")
     .modal(id="modal-map")
       .modal-dialog.modal-xl
         .modal-content
           .modal-header
-            .modal-title.font-24p Filter Restaurants
+            .modal-title.font-24p Филтриране на ресторанти
           .modal-body
             .row
               .col-md-2.col-lg-2.col-sm-12

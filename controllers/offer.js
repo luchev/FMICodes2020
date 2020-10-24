@@ -5,10 +5,14 @@ const Offer = require('../models/Offer');
  * Get all offers
  */
 exports.getOffers = (req, res) => {
-	Offer.find({})
+	const filter = (req.query.search || '') + '.*'
+	Offer.find({title: {$regex: filter, $options: 'i'}})
 	.sort('-updatedAt')
 	.then((offers) => {
-		res.send(offers);
+		res.render('offers', {
+			title: 'Offers',
+			offerItems: offers,
+		})
 	});
 } 
 
