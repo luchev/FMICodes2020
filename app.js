@@ -32,9 +32,8 @@ dotenv.config({ path: '.env.example' });
 const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
-const orderController = require('./controllers/order')
+const orderController = require('./controllers/order');
 const offersController = require('./controllers/offer')
-const itemsController = require('./controllers/items');
 const restaurantController = require('./controllers/restaurant')
 
 /**
@@ -131,7 +130,6 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
  * Primary app routes.
  */
 app.get('/', homeController.index);
-app.get('/items', itemsController.index);
 app.get('/login', userController.getLogin);
 
 app.post('/login', userController.postLogin);
@@ -146,7 +144,8 @@ app.post('/reset/:token', userController.postReset);
 app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
 
-app.get('/order/:id', orderController.getOrder);
+app.get('/orders', orderController.getOrders);
+app.get('/order/:id', orderController.getOrderById);
 app.post('/order', orderController.postOrder);
 
 app.get('/account/verify', passportConfig.isAuthenticated, userController.getVerifyEmail);
