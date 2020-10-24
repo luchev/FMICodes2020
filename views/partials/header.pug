@@ -19,6 +19,9 @@
               span=user.email || user.id
               i.caret
             div.dropdown-menu
-              a.dropdown-item(href='/account') My Account
+              if !user.restaurantExtension || !user.restaurantExtension.restaurantName
+                a.dropdown-item(href='/orders') My Orders
+              else
+                a.dropdown-item(href='/orders') Received Orders
               div.dropdown-divider
               a.dropdown-item(href='/logout') Logout
