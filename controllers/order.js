@@ -1,21 +1,58 @@
 const Order = require('../models/Order');
 const validator = require('validator');
-
+const User = require('../models/User');
 /**
  * GET /orders
  */
 exports.getOrders = (req, res) => {
-    console.log(1234);
-    res.render('orders', {
-        title: 'Orders'
-    })
-  };
+  function isEmpty(obj) {
+    for(var prop in obj) {
+      if(obj.hasOwnProperty(prop)) {
+        return false;
+      }
+    }
+  
+    return JSON.stringify(obj) === JSON.stringify({});
+  }
+
+  User.findById(req.user._id, (err, user) => {
+    if (err) { return done(err); }
+    return user;
+  }).then((value) => {
+    console.log(value.restaurantExtension)
+    if(value.restaurantExtension !== undefined && value.restaurantExtension.restaurantName !== undefined) { 
+      Order.find( {restaurant: req.user._id}, (err, order) => {
+        if (err) { return done(err); }
+        return order;
+      }).then((value) => {
+        console.log(req.user._id + 'is restaurant')
+        console.log(value)
+        res.render('orders', {
+          title: 'Orders',
+          orders: value
+        })
+      })
+    } else {
+      Order.find( {user: req.user._id}, (err, order) => {
+        if (err) { return done(err); }
+        return order;
+      }).then((value) => {
+        console.log(req.user._id + 'is user')
+        console.log(value)
+        res.render('orders', {
+          title: 'Orders',
+          orders: value
+        })
+      })
+    }
+  });
+}
 
 /**
  * GET /odrer/:id
  */
 exports.getOrderById = (req, res) => {
-    console.log(req.params.id)
+    console.log(888888)
     return Order.findById(req.params.id, (err, order) => {
         if (err) { return done(err); }
         return order;
