@@ -7,7 +7,6 @@
     @extend .curved-panel;    
     background: linear-gradient(40deg,#ffd86f,#fc6262) !important;
     color: white;
-    height: 25vw;
 }
 
 .login-page{
@@ -17,7 +16,7 @@
 }
 
 .register-tab{
-    width:50%;
+    width:50.0015%;
     background-color: rgba($orange, 0.5);
     font-size: 1.3em;
 }
@@ -35,7 +34,9 @@
 }
 
 .tab-buttons{
-    //padding-left: 10%;
+    position: relative;
+    top:-0.75rem;
+    left:-0.75rem;
 }
 
 #btn1{
@@ -47,8 +48,11 @@
         border-radius: 2.5vw 0 0 0;
         border: 0;
         color:white;
-
     }
+    
+    position: relative;
+    top:-0.75rem;
+    left:-0.75rem;
 }
 
 #btn2{
@@ -62,5 +66,7 @@
         color:white;
     }
 
-    
+    position: relative;
+    top:-0.75rem;
+    right:-0.75rem;
 }
