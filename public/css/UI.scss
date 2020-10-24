@@ -26,9 +26,12 @@
     width: 15vw;
     height: 14vw;
     background-color: $orange;
+
     display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
     align-items: center;
-    justify-self: center;
+    justify-content: center;
   }
   
   .button{
@@ -46,8 +49,14 @@
   }
 
   .card-thumbnail{
-    margin:0.2vw;
+    margin-left: 0.25vw;
+    margin-right: 0.25vw;
     width:5.5vw;
     height:5.5vw;
     
+  }
+
+  .items-body{
+    background-image: url('../assets/img/WoodBackground.png');
+    background-repeat: repeat-y;
   }
