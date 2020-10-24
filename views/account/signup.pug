@@ -2,81 +2,81 @@ extends ../layout
 
 block content
   body(style='background-image: url("../assets/FoodBackground.png") !important; background-size: cover;')
-    .card
-      .card-body.tab-content.register-page  
-        ul.nav.nav-tabs(role="tablist").border-0.tab-buttons
-            li.nav-item.register-tab#btn1
-              a.nav-link.register-text.active(data-toggle="pill" href="#menu1") Потребител
-            li.nav-item.register-tab#btn2
-              a.nav-link.register-text(data-toggle="pill" href="#menu2") Ресторант
-        
-        #menu1.tab-pane.container.active.row.tab-page
-          form(id='signup-form-user', method='POST')
-            input(type='hidden', name='_csrf', value=_csrf)
-            .form-group.row
-              label.col-md-3.col-form-label.font-weight-bold.text-right(for='email') Email
-              .col-md-7
-                input.curved-panel.form-control(type='email', name='email', id='email', placeholder='Email', autofocus, autocomplete='email', required)
-              
-            .form-group.row
-              label.col-md-3.col-form-label.font-weight-bold.text-right(for='name') Име
-              .col-md-7
-                input.curved-panel.form-control(type='text', name='name', id='name', placeholder='Име', autofocus, required)
-            .form-group.row
-              label.col-md-3.col-form-label.font-weight-bold.text-right(for='password') Парола
-              .col-md-7
-                input.curved-panel.form-control(type='password', name='password', id='password', placeholder='Password', autocomplete='new-password', minlength='8', required)
-            .form-group.row
-              label.col-md-3.col-form-label.font-weight-bold.text-right(for='confirmPassword') Повтори парола
-              .col-md-7
-                input.curved-panel.form-control(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password', autocomplete='new-password', minlength='8', required)
-            .form-group
-              .offset-md-3.col-md-7.pl-2
-                button.curved-panel.btn.btn-block.btn-success(type='submit')
-                  i.fas.fa-user-plus.fa-xs
-                  | Регистрация
-            .form-group
-              .offset-md-3.col-md-7.pl-2
-                a.curved-panel.btn.btn-block.btn-google.btn-social(href='/auth/google')
-                  i.fab.fa-google-plus-g.fa-xs(style='text-align:center')
-                  | Вход с Google
-        
-        #menu2.tab-pane.container.fade.row.tab-page
-          form(id='signup-form-restaurant', method='POST')
-            input(type='hidden', name='_csrf', value=_csrf)
-            .form-group.row
-              label.col-md-3.col-form-label.font-weight-bold.text-right(for='email') Email
-              .col-md-7
-                input.curved-panel.form-control(type='email', name='email', id='email', placeholder='Email', autofocus, autocomplete='email', required)  
-            .form-group.row
-              label.col-md-3.col-form-label.font-weight-bold.text-right(for='name') Име на ресторант
-              .col-md-7
-                input.curved-panel.form-control(type='text', name='name', id='name', placeholder='Име', autofocus, required)
-            .form-group.row
-              label.col-md-3.col-form-label.font-weight-bold.text-right(for='password') Парола
-              .col-md-7
-                input.curved-panel.form-control(type='password', name='password', id='password', placeholder='Password', autocomplete='new-password', minlength='8', required)
-            .form-group.row
-              label.col-md-3.col-form-label.font-weight-bold.text-right(for='confirmPassword') Повтори парола
-              .col-md-7
-                input.curved-panel.form-control(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password', autocomplete='new-password', minlength='8', required)
+    
+    .card-body.tab-content.register-page  
+      ul.nav.nav-tabs(role="tablist").border-0.tab-buttons
+          li.nav-item.register-tab#btn1
+            a.nav-link.register-text.active(data-toggle="pill" href="#menu1") Потребител
+          li.nav-item.register-tab#btn2
+            a.nav-link.register-text(data-toggle="pill" href="#menu2") Ресторант
+      
+      #menu1.tab-pane.container.active.row.tab-page
+        form(id='signup-form-user', method='POST')
+          input(type='hidden', name='_csrf', value=_csrf)
+          .form-group.row
+            label.col-md-3.col-form-label.font-weight-bold.text-right(for='email') Email
+            .col-md-7
+              input.curved-panel.form-control(type='email', name='email', id='email', placeholder='Email', autofocus, autocomplete='email', required)
             
-            .form-group.row
-              label.col-md-3.col-form-label.font-weight-bold.text-right(for='bulstat') Булстат
-              .col-md-7
-                input.curved-panel.form-control(type='text', name='bulstat', id='bulstat', placeholder='Булстат', autofocus, required)
+          .form-group.row
+            label.col-md-3.col-form-label.font-weight-bold.text-right(for='name') Име
+            .col-md-7
+              input.curved-panel.form-control(type='text', name='name', id='name', placeholder='Име', autofocus, required)
+          .form-group.row
+            label.col-md-3.col-form-label.font-weight-bold.text-right(for='password') Парола
+            .col-md-7
+              input.curved-panel.form-control(type='password', name='password', id='password', placeholder='Password', autocomplete='new-password', minlength='8', required)
+          .form-group.row
+            label.col-md-3.col-form-label.font-weight-bold.text-right(for='confirmPassword') Повтори парола
+            .col-md-7
+              input.curved-panel.form-control(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password', autocomplete='new-password', minlength='8', required)
+          .form-group
+            .offset-md-3.col-md-7.pl-2
+              button.curved-panel.btn.btn-block.btn-success(type='submit')
+                i.fas.fa-user-plus.fa-xs
+                | Регистрация
+          .form-group
+            .offset-md-3.col-md-7.pl-2
+              a.curved-panel.btn.btn-block.btn-google.btn-social(href='/auth/google')
+                i.fab.fa-google-plus-g.fa-xs(style='text-align:center')
+                | Вход с Google
+      
+      #menu2.tab-pane.container.fade.row.tab-page
+        form(id='signup-form-restaurant', method='POST')
+          input(type='hidden', name='_csrf', value=_csrf)
+          .form-group.row
+            label.col-md-3.col-form-label.font-weight-bold.text-right(for='email') Email
+            .col-md-7
+              input.curved-panel.form-control(type='email', name='email', id='email', placeholder='Email', autofocus, autocomplete='email', required)  
+          .form-group.row
+            label.col-md-3.col-form-label.font-weight-bold.text-right(for='name') Име на ресторант
+            .col-md-7
+              input.curved-panel.form-control(type='text', name='name', id='name', placeholder='Име', autofocus, required)
+          .form-group.row
+            label.col-md-3.col-form-label.font-weight-bold.text-right(for='password') Парола
+            .col-md-7
+              input.curved-panel.form-control(type='password', name='password', id='password', placeholder='Password', autocomplete='new-password', minlength='8', required)
+          .form-group.row
+            label.col-md-3.col-form-label.font-weight-bold.text-right(for='confirmPassword') Повтори парола
+            .col-md-7
+              input.curved-panel.form-control(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password', autocomplete='new-password', minlength='8', required)
           
-            .form-group.row
-              label.col-md-3.col-form-label.font-weight-bold.text-right(for='address') Адрес
-              .col-md-7
-                input.curved-panel.form-control(type='text', name='address', id='address', placeholder='Адрес', autofocus, required)
+          .form-group.row
+            label.col-md-3.col-form-label.font-weight-bold.text-right(for='bulstat') Булстат
+            .col-md-7
+              input.curved-panel.form-control(type='text', name='bulstat', id='bulstat', placeholder='Булстат', autofocus, required)
+        
+          .form-group.row
+            label.col-md-3.col-form-label.font-weight-bold.text-right(for='address') Адрес
+            .col-md-7
+              input.curved-panel.form-control(type='text', name='address', id='address', placeholder='Адрес', autofocus, required)
 
 
-            .form-group
-              .offset-md-3.col-md-7.pl-2
-                button.curved-panel.btn.btn-block.btn-success(type='submit')
-                  i.fas.fa-user-plus.fa-xs
-                  | Регистрация
+          .form-group
+            .offset-md-3.col-md-7.pl-2
+              button.curved-panel.btn.btn-block.btn-success(type='submit')
+                i.fas.fa-user-plus.fa-xs
+                | Регистрация
   //-form(id='signup-form', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group.row
