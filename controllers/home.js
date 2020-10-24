@@ -30,5 +30,23 @@ async function getAllRestaurants() {
     }
   } );
 
+  let offers = {};
+  await Offer.find( {}, (err, result) => {
+    if ( err ) {
+      res.redirect('/');
+    }
+    for ( const offer of Array.from( result ) ) {
+      if (offer.price > 0) {
+        offers[offer.restaurantId] = [offer.price, offer.count]
+      }
+    }
+  });
+  
+  for (let restaurant of restaurants) {
+    if (offers[restaurant.id]) {
+      [restaurant.price, restaurant.count] = offers[restaurant.id];
+    }
+  }
+
   return restaurants;
 }
