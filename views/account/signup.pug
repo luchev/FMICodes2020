@@ -10,27 +10,28 @@ block content
             a.nav-link.register-text(data-toggle="pill" href="#menu2") Ресторант
       
       #menu1.tab-pane.container.active.row.tab-page
-        form
+        form(id='signup-form-user', method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
         .form-group.row
-          label.col-md-3.col-form-label.font-weight-bold.text-right(for='email') Email
+          label.col-md-3.col-form-label.font-weight-bold.text-right(for='email_u') Email
           .col-md-7
-            input.curved-panel.form-control(type='email', name='email', id='email', placeholder='Email', autofocus, autocomplete='email', required)
+            input.curved-panel.form-control(type='email', name='email_u', id='email_u', placeholder='Email', autofocus, autocomplete='email', required)
           
         .form-group.row
           label.col-md-3.col-form-label.font-weight-bold.text-right(for='name') Име
           .col-md-7
-            input.curved-panel.form-control(type='text', name='name', id='name', placeholder='Име', autofocus, required)
+            input.curved-panel.form-control(type='text', name='name', id='name_u', placeholder='Име', autofocus, required)
         .form-group.row
-          label.col-md-3.col-form-label.font-weight-bold.text-right(for='password') Парола
+          label.col-md-3.col-form-label.font-weight-bold.text-right(for='password_u') Парола
           .col-md-7
-            input.curved-panel.form-control(type='password', name='password', id='password', placeholder='Password', autocomplete='new-password', minlength='8', required)
+            input.curved-panel.form-control(type='password', name='password_u', id='password_u', placeholder='Password', autocomplete='new-password', minlength='8', required)
         .form-group.row
-          label.col-md-3.col-form-label.font-weight-bold.text-right(for='confirmPassword') Повтори парола
+          label.col-md-3.col-form-label.font-weight-bold.text-right(for='confirmPassword_u') Повтори парола
           .col-md-7
-            input.curved-panel.form-control(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password', autocomplete='new-password', minlength='8', required)
+            input.curved-panel.form-control(type='password', name='confirmPassword_u', id='confirmPassword_u', placeholder='Confirm Password', autocomplete='new-password', minlength='8', required)
         .form-group
           .offset-md-3.col-md-7.pl-2
-            button.curved-panel.btn.btn-block.btn-success(type='submit')
+            button.curved-panel.btn.btn-block.btn-success(type='submit_u')
               i.fas.fa-user-plus.fa-xs
               | Регистрация
         .form-group
@@ -40,38 +41,39 @@ block content
               | Вход с Google
       
       #menu2.tab-pane.container.fade.row.tab-page
-        form
+        form(id='signup-form-restaurant', method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
         .form-group.row
-          label.col-md-3.col-form-label.font-weight-bold.text-right(for='email') Email
+          label.col-md-3.col-form-label.font-weight-bold.text-right(for='email_r') Email
           .col-md-7
-            input.curved-panel.form-control(type='email', name='email', id='email', placeholder='Email', autofocus, autocomplete='email', required)  
+            input.curved-panel.form-control(type='email', name='email_r', id='email_r', placeholder='Email', autofocus, autocomplete='email', required)  
         .form-group.row
-          label.col-md-3.col-form-label.font-weight-bold.text-right(for='name') Име на ресторант
+          label.col-md-3.col-form-label.font-weight-bold.text-right(for='name_r') Име на ресторант
           .col-md-7
-            input.curved-panel.form-control(type='text', name='name', id='name', placeholder='Име', autofocus, required)
+            input.curved-panel.form-control(type='text', name='name_r', id='name_r', placeholder='Име', autofocus, required)
         .form-group.row
-          label.col-md-3.col-form-label.font-weight-bold.text-right(for='password') Парола
+          label.col-md-3.col-form-label.font-weight-bold.text-right(for='password_r') Парола
           .col-md-7
-            input.curved-panel.form-control(type='password', name='password', id='password', placeholder='Password', autocomplete='new-password', minlength='8', required)
+            input.curved-panel.form-control(type='password', name='password_r', id='password_r', placeholder='Password', autocomplete='new-password', minlength='8', required)
         .form-group.row
-          label.col-md-3.col-form-label.font-weight-bold.text-right(for='confirmPassword') Повтори парола
+          label.col-md-3.col-form-label.font-weight-bold.text-right(for='confirmPassword_r') Повтори парола
           .col-md-7
-            input.curved-panel.form-control(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password', autocomplete='new-password', minlength='8', required)
+            input.curved-panel.form-control(type='password', name='confirmPassword_r', id='confirmPassword_r', placeholder='Confirm Password', autocomplete='new-password', minlength='8', required)
         
         .form-group.row
-          label.col-md-3.col-form-label.font-weight-bold.text-right(for='name') Булстат
+          label.col-md-3.col-form-label.font-weight-bold.text-right(for='bulstat_r') Булстат
           .col-md-7
-            input.curved-panel.form-control(type='text', name='bulstat', id='bulstat', placeholder='Булстат', autofocus, required)
+            input.curved-panel.form-control(type='text', name='bulstat_r', id='bulstat_r', placeholder='Булстат', autofocus, required)
       
         .form-group.row
-          label.col-md-3.col-form-label.font-weight-bold.text-right(for='name') Адрес
+          label.col-md-3.col-form-label.font-weight-bold.text-right(for='address_r') Адрес
           .col-md-7
-            input.curved-panel.form-control(type='text', name='address', id='address', placeholder='Адрес', autofocus, required)
+            input.curved-panel.form-control(type='text', name='address_r', id='address_r', placeholder='Адрес', autofocus, required)
 
 
         .form-group
           .offset-md-3.col-md-7.pl-2
-            button.curved-panel.btn.btn-block.btn-success(type='submit')
+            button.curved-panel.btn.btn-block.btn-success(type='submit_r')
               i.fas.fa-user-plus.fa-xs
               | Регистрация
   //-form(id='signup-form', method='POST')
