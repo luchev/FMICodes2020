@@ -1,23 +1,34 @@
+const User = require( '../models/User' );
 /**
  * GET /
  * Home page.
  */
 const Offer = require('../models/Offer')
 
-exports.index = (req, res) => {
-  // const offer = new Offer({
-  //   restaurantId: '5f940d5baf10483b609f250f',
-  
-  //   offer: 'Свински врат',
-  //   price: 5,
-  //   count: 10,
-  //   startTime: new Date(),
-  //   endTime: new Date(),
-  
-  //   image: "asd"
-  // });
-  // offer.save();
+exports.index = async (req, res) => {
+  let restaurants = await getAllRestaurants();
   res.render('home', {
-    title: 'Home'
+    title: 'Home',
+    restaurants: JSON.stringify(restaurants),
   });
 };
+
+async function getAllRestaurants() {
+  let restaurants = [];
+  await User.find( {}, ( err, result ) => {
+    if ( err ) {
+      res.redirect( '/' )
+    }
+
+    for (const user of Array.from(result)) {
+      if ( user.restaurantExtension !== undefined && user.restaurantExtension.restaurantName !== undefined ) {
+        restaurants.push({
+          id: user._id,
+          ...user.restaurantExtension,
+        });
+      }
+    }
+  } );
+
+  return restaurants;
+}

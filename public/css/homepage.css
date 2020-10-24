@@ -59,3 +59,8 @@
     position: absolute; 
     bottom: 1px; 
 }
+
+.body-restaurant-page {
+    background-image: url("../assets/img/corkBoard.jpg");
+    background-size: cover;
+}

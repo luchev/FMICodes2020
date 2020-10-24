@@ -9,5 +9,6 @@ block content
     p Адрес #{restaurant.address}
     p Оферта #{offer}
     p Ревюта:
-    for x in reviews
-      li= `current value using for-in is ${x}`
+    if(revies != undefined)
+      for x in reviews
+        li= `current value using for-in is ${x}`
