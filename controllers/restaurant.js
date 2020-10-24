@@ -51,7 +51,7 @@ exports.getRestaurant = async (req, res) => {
 		}
 		reviews = foundReviews
 	});
-	console.log(reviews)
+	// console.log(reviews)
 
 	let renderPage = 'restaurant_view';
 	if ( req.user && id === req.user.id ) {
@@ -70,7 +70,6 @@ exports.getRestaurant = async (req, res) => {
  * Updates restaurant by id
  */
 exports.postRestaurant = async ( req, res ) => {
-	console.log(1)
 	let user = req.user;
 	user.restaurantExtension.restaurantName = req.body.name;
 	user.restaurantExtension.xCoordinate = req.body.xCoordinate;
@@ -89,5 +88,5 @@ exports.postRestaurant = async ( req, res ) => {
 	}
 
 	await Offer.updateOne( {restaurantId: user._id}, offerUpdate );
-	res.send(200);
+	res.redirect('/restaurants/' + req.params.id);
 }

@@ -27,7 +27,7 @@ block content
       .card-title
         h1 EDIT
       .card-body
-        form
+        form(method='POST')
           .form-group
             .form-group.row
               label.col-md-3.col-form-label.font-weight-bold.text-right(for='name') Име
@@ -98,7 +98,7 @@ block content
 
             .form-group.mt-4
               .offset-md-3.col-md-12.pl-2
-                button.col-md-3.btn.btn-primary(type='button')
+                button.col-md-3.btn.btn-primary(type='submit')
                   i.far
                   | Запази промените
 
