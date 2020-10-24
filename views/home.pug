@@ -29,8 +29,8 @@ block content
               window.location.href= searchText ? '/offers?search=' + searchText : '/offers'; 
             }
           .col-auto
-            button.btn.ml-3.mr-0.text-white.fas.fa-search.shadow-15p-7.gradient-symbol-button(type="submit", onclick="openOffers()")
-            button.btn.ml-3.text-white.fas.fa-map.shadow-15p-7.gradient-symbol-button(type="submit", href="#", data-toggle="modal", data-target="#modal-map")
+            button.btn.ml-3.mr-0.text-white.fas.fa-search.shadow-15p-7.gradient-symbol-button(type="button", onclick="openOffers()")
+            button.btn.ml-3.text-white.fas.fa-map.shadow-15p-7.gradient-symbol-button(type="button", href="#", data-toggle="modal", data-target="#modal-map")
     .modal(id="modal-map")
       .modal-dialog.modal-xl
         .modal-content

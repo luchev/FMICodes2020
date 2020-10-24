@@ -93,9 +93,10 @@ exports.getOrderById = (req, res) => {
  */
 exports.postOrder = async (req, res) => {
   const validationErrors = [];
-  if (validator.isEmpty(req.body.userId)) validationErrors.push({ msg: 'userId cannot be blank.' });
-  if (validator.isEmpty(req.body.restaurantId)) validationErrors.push({ msg: 'restaurantId cannot be blank.' });
-  if (validator.isEmpty(req.body.offerId)) validationErrors.push({ msg: 'offerId cannot be blank.' });
+  console.log(131231)
+  if (req.body.userId != undefined && validator.isEmpty(req.body.userId)) validationErrors.push({ msg: 'userId cannot be blank.' });
+  if (req.body.restaurantId != undefined && validator.isEmpty(req.body.restaurantId)) validationErrors.push({ msg: 'restaurantId cannot be blank.' });
+  if (req.body.offerId != undefined && validator.isEmpty(req.body.offerId)) validationErrors.push({ msg: 'offerId cannot be blank.' });
   let offer
   await Offer.findById(req.body.offerId, (err, foundOffer) => {
     if (err) { return done(err); }
