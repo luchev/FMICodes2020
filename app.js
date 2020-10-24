@@ -32,7 +32,6 @@ dotenv.config({ path: '.env.example' });
 const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
-const contactController = require('./controllers/contact');
 const orderController = require('./controllers/order');
 const offersController = require('./controllers/offer')
 const restaurantController = require('./controllers/restaurant')
@@ -149,9 +148,6 @@ app.get('/orders', orderController.getOrders);
 app.get('/order/:id', orderController.getOrderById);
 app.post('/order', orderController.postOrder);
 
-app.get('/contact', contactController.getContact);
-app.post('/contact', contactController.postContact);
-
 app.get('/account/verify', passportConfig.isAuthenticated, userController.getVerifyEmail);
 app.get('/account/verify/:token', passportConfig.isAuthenticated, userController.getVerifyEmailToken);
 app.get('/account', passportConfig.isAuthenticated, userController.getAccount);
@@ -163,7 +159,9 @@ app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userControl
 app.get('/offers/:id', offersController.getOffer);
 app.get('/offers', offersController.getOffers);
 
-app.get('/restaurants/:id', restaurantController.getRestaurant)
+app.get('/restaurants/:id', restaurantController.getRestaurant);
+app.post( '/restaurants/:id', restaurantController.postRestaurant );
+
 
 /**
  * API examples routes.

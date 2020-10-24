@@ -10,15 +10,19 @@
       ul.nav.navbar-nav.ml-auto
         if !user
           li.nav-item(class=(title === 'Login') ? 'active' : undefined)
-            a.nav-link.text-white(href='/login') Login
+            a.nav-link.text-white(href='/login') Влез
           li.nav-item(class=(title === 'Create Account') ? 'active' : undefined)
-            a.nav-link.text-white(href='/signup') Create Account
+            a.nav-link.text-white(href='/signup') Регистрация
         else
           li.dropdown(class=(title === 'Account Management') ? 'active' : undefined).nav-item
             a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown')  
               span=user.email || user.id
               i.caret
             div.dropdown-menu
-              a.dropdown-item(href='/account') My Account
+              if !user.restaurantExtension || !user.restaurantExtension.restaurantName
+                a.dropdown-item(href='/orders') Моите поръчки
+              else
+                a.dropdown-item(href='/orders') Получени поръчки
+                a.dropdown-item(href='/restaurants/' + user.id) Моят ресторант 
               div.dropdown-divider
-              a.dropdown-item(href='/logout') Logout
+              a.dropdown-item(href='/logout') Излез

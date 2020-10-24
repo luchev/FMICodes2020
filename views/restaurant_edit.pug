@@ -1,0 +1,63 @@
+extends layout
+
+block head
+
+block content
+  h1 EDIT
+  form(method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group
+      .form-group.row
+        label.col-md-3.col-form-label.font-weight-bold.text-right(for='name') Име
+        .col-md-7
+          input.form-control(type='text', name='name', id='name', value=`${restaurant.restaurantName}`)
+      .form-group.row
+        label.col-md-3.col-form-label.font-weight-bold.text-right(for='xCoordinate') Координати x:
+        .col-md-7
+          input.form-control(type='number', step='any', name='xCoordinate', id='xCoordinate', required, value=`${restaurant.xCoordinate}`)
+      .form-group.row
+        label.col-md-3.col-form-label.font-weight-bold.text-right(for='yCoordinate') Координати y:
+        .col-md-7
+          input.form-control(type='number', step='any', name='yCoordinate', id='yCoordinate', required, value=`${restaurant.yCoordinate}`)
+      .form-group.row
+        label.col-md-3.col-form-label.font-weight-bold.text-right(for='address') Adres:
+        .col-md-7
+          input.form-control(type='address', name='address', id='address', value=`${restaurant.address}`)
+    .form-group
+      .form-group.row
+        label.col-md-3.col-form-label.font-weight-bold.text-right(for='title') Оферта:
+        .col-md-7
+          input.form-control(type='text', name='title', id='title', value=`${offer.title}`)
+      .form-group.row
+        label.col-md-3.col-form-label.font-weight-bold.text-right(for='offer') Описание:
+        .col-md-7
+          input.form-control(type='test', step='any', name='offer', id='offer', value=`${offer.offer}`)
+      .form-group.row
+        label.col-md-3.col-form-label.font-weight-bold.text-right(for='price') цена:
+        .col-md-7
+          input.form-control(type='number', step='any', name='price', id='price', value=`${offer.price}`)
+      .form-group.row
+        label.col-md-3.col-form-label.font-weight-bold.text-right(for='count') Налични бройки:
+        .col-md-7
+          input.form-control(type='number', name='count', id='count', value=`${offer.count}`)
+      .form-group.row
+        label.col-md-3.col-form-label.font-weight-bold.text-right(for='startTime') начален час:
+        .col-md-7
+          input.form-control(type='datetime', name='startTime', id='startTime', value=`${offer.startTime}`)
+      .form-group.row
+        label.col-md-3.col-form-label.font-weight-bold.text-right(for='endTime') краен час:
+        .col-md-7
+          input.form-control(type='datetime', name='endTime', id='endTime', value=`${offer.endTime}`)
+      .form-group.row
+        label.col-md-3.col-form-label.font-weight-bold.text-right(for='image') картинка (url):
+        .col-md-7
+          input.form-control(type='url', name='image', id='image', value=`${offer.image}`)
+    .form-group
+      .offset-md-3.col-md-12.pl-2
+        button.col-md-3.btn.btn-primary(type='submit')
+          i.far
+          | Промени данните
+
+    // LIST ALL REVIEWS
+    //- for x in reviews
+    //-   li= `current value using for-in is ${x}`

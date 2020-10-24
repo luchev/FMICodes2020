@@ -63,9 +63,7 @@ exports.getOrders = async (req, res) => {
       offers.push(offer);
       restaurants.push(restaurant);
     }
-    console.log(orders.length);
-    console.log(restaurants.length);
-    console.log(offers.length);
+    console.log(offers);
     res.render('orders', {
       title: 'Orders',
       orders: orders,
