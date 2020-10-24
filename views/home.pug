@@ -4,6 +4,7 @@ block head
   link(rel="stylesheet" type="text/css" href="css/homepage.css")
 
 block content
+  script(src="js/buttonEventHandlers.js")
   body.body-home-page
     .row
       .col-md-5
@@ -31,13 +32,61 @@ block content
             .modal-title.font-24p Filter Restaurants
           .modal-body
             .row
-              .col-2
+              .col-md-2.col-lg-2.col-sm-12
                 form
                   .form-group
                     label(for="slider-price") Цена: 
                     input(type="range", min="1", max="30", id="slider-price")
-                    span 
-              //- slider disatnce, slider price, tags selection -//
+                    p Цена под: &nbsp
+                      span(id="price-to")
+                      span лв.
+                      script.
+                        let sliderPrice = document.getElementById("slider-price");
+                        sliderHandler(sliderPrice, document.getElementById("price-to"));
+                        sliderPrice.oninput = () => {sliderHandler(sliderPrice, document.getElementById("price-to")) };
+                    <br>
+                    label(for="slider-distance") Дистанция: 
+                    input(type="range", min="1", max="3000", value="1500", id="slider-distance")
+                    p Дистанция под: &nbsp
+                      span(id="distance-to")
+                      span м.
+                      script.
+                        let sliderDistance = document.getElementById("slider-distance");
+                        sliderHandler(sliderDistance, document.getElementById("distance-to"));
+                        sliderDistance.oninput = () => {sliderHandler(sliderDistance, document.getElementById("distance-to")) };
+                    .row
+                      .form-group.col-12
+                        input(type="checkbox", name="vegan-checkbox", id="vegan-checkbox", autocomplete="off")
+                        .btn-group
+                          label.btn.btn-success(for="vegan-checkbox")
+                            span.fas.fa-leaf
+                            span &nbsp
+                          label.btn.btn-default.active(for="vegan-checkbox") Vegan
+                      .form-group.col-12
+                        input(type="checkbox", name="keto-checkbox", id="keto-checkbox", autocomplete="off")
+                        .btn-group
+                          label.btn.btn-success(for="keto-checkbox")
+                            span.fas.fa-leaf
+                            span &nbsp
+                          label.btn.btn-default.active(for="keto-checkbox") Keto
+                      .form-group.col-12
+                        input(type="checkbox", name="gluten-free-checkbox", id="gluten-free-checkbox", autocomplete="off")
+                        .btn-group
+                          label.btn.btn-success(for="gluten-free-checkbox")
+                            span.fas.fa-leaf
+                            span &nbsp
+                          label.btn.btn-default.active(for="gluten-free-checkbox") Gluten-free
+                      .form-group.col-12
+                        input(type="checkbox", name="sugar-free-checkbox", id="sugar-free-checkbox", autocomplete="off")
+                        .btn-group
+                          label.btn.btn-success(for="sugar-free-checkbox")
+                            span.fas.fa-leaf
+                            span &nbsp
+                          label.btn.btn-default.active(for="sugar-free-checkbox") Sugar-free
+                    .button.btn.btn-primary.bottom-left-align Search  
+                      
+
+                  
                 
               .col-10
 
