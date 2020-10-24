@@ -7,7 +7,6 @@
     @extend .curved-panel;    
     background: linear-gradient(40deg,#ffd86f,#fc6262) !important;
     color: white;
-    height: 25vw;
 }
 
 .login-page{
@@ -32,10 +31,6 @@
 
 .tab-page{
     margin-top:2vw;
-}
-
-.tab-buttons{
-    //padding-left: 10%;
 }
 
 #btn1{
