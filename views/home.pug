@@ -75,4 +75,4 @@ block content
                   });
                 }
 
-              script(async defer src=`https://maps.googleapis.com/maps/api/js?key=AIzaSyCZOZPo8ZZH9bm2kxotTeIxClgCt5KeuqA&callback=initMap`)
+              script(async defer src=`https://maps.googleapis.com/maps/api/js?key=` + process.env.GOOGLE_MAP_API_KEY +`&callback=initMap`)
