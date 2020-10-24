@@ -1,62 +1,106 @@
 extends layout
 
 block head
+  //- link(rel="stylesheet" type="text/css" href="/css/homepage.css")
+  style.
+    .body-restaurant-page {
+      background-image: url("../assets/img/lightWallpaperFood.jpg");
+      background-size: cover;
+    }
+    .profile-card{
+      border-radius: 0.8rem; 
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); 
+      /*background: linear-gradient(40deg,#ffd86f,#fc6262) !important; */
+      background-color: rgb(234, 231, 227);
+      opacity: 0.98;
+      padding-top: 2%;
+    }
+    .modal-backdrop{
+      position: relative;
+      z-index: 1040 !important;
+    }
 
 block content
-  h1 EDIT
-  form(method='POST')
-    input(type='hidden', name='_csrf', value=_csrf)
-    .form-group
-      .form-group.row
-        label.col-md-3.col-form-label.font-weight-bold.text-right(for='name') Име
-        .col-md-7
-          input.form-control(type='text', name='name', id='name', value=`${restaurant.restaurantName}`)
-      .form-group.row
-        label.col-md-3.col-form-label.font-weight-bold.text-right(for='xCoordinate') Координати x:
-        .col-md-7
-          input.form-control(type='number', step='any', name='xCoordinate', id='xCoordinate', required, value=`${restaurant.xCoordinate}`)
-      .form-group.row
-        label.col-md-3.col-form-label.font-weight-bold.text-right(for='yCoordinate') Координати y:
-        .col-md-7
-          input.form-control(type='number', step='any', name='yCoordinate', id='yCoordinate', required, value=`${restaurant.yCoordinate}`)
-      .form-group.row
-        label.col-md-3.col-form-label.font-weight-bold.text-right(for='address') Adres:
-        .col-md-7
-          input.form-control(type='address', name='address', id='address', value=`${restaurant.address}`)
-    .form-group
-      .form-group.row
-        label.col-md-3.col-form-label.font-weight-bold.text-right(for='title') Оферта:
-        .col-md-7
-          input.form-control(type='text', name='title', id='title', value=`${offer.title}`)
-      .form-group.row
-        label.col-md-3.col-form-label.font-weight-bold.text-right(for='offer') Описание:
-        .col-md-7
-          input.form-control(type='test', step='any', name='offer', id='offer', value=`${offer.offer}`)
-      .form-group.row
-        label.col-md-3.col-form-label.font-weight-bold.text-right(for='price') цена:
-        .col-md-7
-          input.form-control(type='number', step='any', name='price', id='price', value=`${offer.price}`)
-      .form-group.row
-        label.col-md-3.col-form-label.font-weight-bold.text-right(for='count') Налични бройки:
-        .col-md-7
-          input.form-control(type='number', name='count', id='count', value=`${offer.count}`)
-      .form-group.row
-        label.col-md-3.col-form-label.font-weight-bold.text-right(for='startTime') начален час:
-        .col-md-7
-          input.form-control(type='datetime', name='startTime', id='startTime', value=`${offer.startTime}`)
-      .form-group.row
-        label.col-md-3.col-form-label.font-weight-bold.text-right(for='endTime') краен час:
-        .col-md-7
-          input.form-control(type='datetime', name='endTime', id='endTime', value=`${offer.endTime}`)
-      .form-group.row
-        label.col-md-3.col-form-label.font-weight-bold.text-right(for='image') картинка (url):
-        .col-md-7
-          input.form-control(type='url', name='image', id='image', value=`${offer.image}`)
-    .form-group
-      .offset-md-3.col-md-12.pl-2
-        button.col-md-3.btn.btn-primary(type='submit')
-          i.far
-          | Промени данните
+  body.body-restaurant-page
+    script(src="/js/buttonEventHandlers.js")
+    .card.profile-card
+      .card-title
+        h1 EDIT
+      .card-body
+        form
+          .form-group
+            .form-group.row
+              label.col-md-3.col-form-label.font-weight-bold.text-right(for='name') Име
+              .col-md-7
+                input.form-control(type='text', name='name', id='name', value=`${restaurant.restaurantName}`)
+            .form-group.row
+              label.col-md-3.col-form-label.font-weight-bold.text-right(for='xCoordinate') Координати x:
+              .col-md-7
+                input.form-control(type='number', step='any', name='xCoordinate', id='xCoordinate', required, value=`${restaurant.xCoordinate}`)
+            .form-group.row
+              label.col-md-3.col-form-label.font-weight-bold.text-right(for='yCoordinate') Координати y:
+              .col-md-7
+                input.form-control(type='number', step='any', name='yCoordinate', id='yCoordinate', required, value=`${restaurant.yCoordinate}`)
+            .form-group.row
+              label.col-md-3.col-form-label.font-weight-bold.text-right(for='address') Адрес:
+              .col-md-7
+                input.form-control(type='address', name='address', id='address', value=`${restaurant.address}`)
+            .modal(id="modal-offer", style="margin-top: 70px")
+              .modal-dialog
+                .modal-content(style="z-index:1100 !important;")
+                  .modal-body
+                    .form-group
+                      .form-group.row
+                        label.col-md-3.col-form-label.font-weight-bold.text-right(for='title') Оферта:
+                        .col-md-7
+                          input.form-control(type='text', name='title', id='title', value=`${offer.title}`)
+                      .form-group.row
+                        label.col-md-3.col-form-label.font-weight-bold.text-right(for='offer') Описание:
+                        .col-md-7
+                          input.form-control(type='test', step='any', name='offer', id='offer', value=`${offer.offer}`)
+                      .form-group.row
+                        label.col-md-3.col-form-label.font-weight-bold.text-right(for='price') цена:
+                        .col-md-7
+                          input.form-control(type='number', step='any', name='price', id='price', value=`${offer.price}`)
+                      .form-group.row
+                        label.col-md-3.col-form-label.font-weight-bold.text-right(for='count') Налични бройки:
+                        .col-md-7
+                          input.form-control(type='number', name='count', id='count', value=`${offer.count}`)
+                      .form-group.row
+                        label.col-md-3.col-form-label.font-weight-bold.text-right(for='startTime') начален час:
+                        .col-md-7
+                          input.form-control(type='datetime', name='startTime', id='startTime', value=`${offer.startTime}`)
+                      .form-group.row
+                        label.col-md-3.col-form-label.font-weight-bold.text-right(for='endTime') краен час:
+                        .col-md-7
+                          input.form-control(type='datetime', name='endTime', id='endTime', value=`${offer.endTime}`)
+                      .form-group.row
+                        label.col-md-3.col-form-label.font-weight-bold.text-right(for='image') картинка (url):
+                        .col-md-7
+                          input.form-control(type='url', name='image', id='image', value=`${offer.image}`)
+                      .form-group.row
+                        button.btn.btn-primary.m-4(type="button", id="btnUpdateOffer", href="#", data-toggle="modal", data-target="#modal-offer") Обновяване
+                        script.
+                          document.getElementById("btnUpdateOffer").onclick = () => {
+                            fillOfferSummary();
+                          }
+
+
+            .row
+              .col-3
+              .card.pt-0.ml-3.profile-card.col-4(style="background-color: rgb(234, 231, 227); border: 1px, solid, black")
+                .card-body.white-text.font-24(id="offer-summary")
+                  script fillOfferSummary();
+              .col-1
+              .col-2
+                button.btn.btn-primary(href="#", data-toggle="modal", data-target="#modal-offer", type="button") Редакция на оферта
+
+
+            .form-group.mt-4
+              .offset-md-3.col-md-12.pl-2
+                button.col-md-3.btn.btn-primary(type='submit')
+                  i.far
+                  | Запази промените
 
     // LIST ALL REVIEWS
     //- for x in reviews
