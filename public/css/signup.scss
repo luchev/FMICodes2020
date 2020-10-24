@@ -1,0 +1,24 @@
+@import "UI.scss";
+
+.register-page{
+    @extend .curved-panel;    
+    background-color: $orange;
+    color: white;
+    padding: 1vw;
+    height: 23vw;
+}
+
+.register-tab{
+    margin-left:5%;
+    width:40%;
+    background-color: rgba($orange, 0.5);
+    font-size: 1.3em;
+}
+
+
+.register-text{
+    color:white;
+}
+.register-text:hover{
+    color:white;
+}
