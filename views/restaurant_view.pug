@@ -3,34 +3,63 @@ extends layout
 block head
 
 block content
-  h1 Hello
-    p Ресторант #{restaurant.restaurantName}
-    p Адрес #{restaurant.address}
-    p Оферта #{offer}
+  body(style='background-image: url("../assets/FoodBackground.png") !important; background-size: cover;')
     .col-lg-12.col-md-12.col-sm-12
         .card.mt-4.mb-2.p-2.text-white(style="border-radius: 0.8rem; box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); background: linear-gradient(40deg,#ffd86f,#fc6262) !important; opacity: .95;")
           .card-body
+            .row
+              .col
+                h1 Ресторант #{restaurant.restaurantName}
+                h3 Адрес: #{restaurant.address}
+                h4 Предлага: #{offer.title}
+                h4
+                  | От: #{offer.startTime.getHours()}:#{offer.startTime.getMinutes()}, #{offer.startTime.getDate()}.#{offer.startTime.getMonth() + 1}
+                  br
+                  | До: #{offer.endTime.getHours()}:#{offer.endTime.getMinutes()}, #{offer.endTime.getDate()}.#{offer.endTime.getMonth() + 1}
+                h4 Цена: #{offer.price}лв.
+                h4 Останали: #{offer.count}
+                button.col-md-3.btn.btn-primary(type='submit')
+                  i.far
+                  | Поръчай
+              .col
+                - var url = offer.image;
+                img(src="../assets/img/" + url)
+                
+
+            //-Оферта { 
+              _id: 5f9466e61f3fca568804c477, 
+              restaurantId: 5f9466e21f3fca568804c476, 
+              title: 'Пилешка пържола', 
+              offer: 'Пържола - пилешка', 
+              price: 12, 
+              count: 0, 
+              startTime: 2020-10-24T17:39:50.000Z, 
+              endTime: 2020-10-26T17:39:50.000Z, 
+              image: '', 
+              createdAt: 2020-10-24T17:39:50.992Z, 
+              updatedAt: 2020-10-24T17:55:32.956Z, __v: 0 }
             .p.card-text.h5
               | #{offer.text} <br>
-    p Ревюта:
-    if(revies != undefined)
-      for x in reviews
-        li= `current value using for-in is ${x}`
+            
+            h3 Ревюта:
+            if(revies != undefined)
+              for x in reviews
+                li= `current value using for-in is ${x}`
 
-  h1 Ревю
-  form(method='POST')
-    input(type='hidden', name='_csrf', value=_csrf)
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right(for='text') Ревю
-      .col-md-7
-        input.form-control(type='text', name='text', id='text', placeholder='', autofocus)
-    .form-group.row
-      label.col-md-3.col-form-label.font-weight-bold.text-right(for='score') Оценка
-      .col-md-7
-        input.form-control(type='number', max=5, min=1  , name='score', id='score', required)
-    .form-group
-      .offset-md-3.col-md-12.pl-2
-        button.col-md-3.btn.btn-primary(type='submit')
-          i.far
-          | Направи Ревю
+            h3 Остави ревю  
+            form(method='POST')
+              input(type='hidden', name='_csrf', value=_csrf)
+              .form-group.row
+                label.col-md-3.col-form-label.font-weight-bold.text-right(for='text') Ревю
+                .col-md-7
+                  input.form-control(type='text', name='text', id='text', placeholder='', autofocus)
+              .form-group.row
+                label.col-md-3.col-form-label.font-weight-bold.text-right(for='score') Оценка
+                .col-md-7
+                  input.form-control(type='number', max=5, min=1  , name='score', id='score', required)
+              .form-group
+                .offset-md-3.col-md-12.pl-2
+                  button.col-md-3.btn.btn-primary(type='submit')
+                    i.far
+                    | Направи Ревю
 
