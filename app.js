@@ -33,11 +33,8 @@ const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
-<<<<<<< HEAD
 const orderController = require('./controllers/order')
-=======
 const offersController = require('./controllers/offer')
->>>>>>> 2f7b9ea7ae55819aa67ae8c74cd2ae894d489d82
 
 /**
  * API keys and Passport configuration.
