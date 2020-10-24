@@ -2,9 +2,10 @@ const Order = require('../models/Order');
 const validator = require('validator');
 
 /**
- * GET /order
+ * GET /orders
  */
-exports.getOrder = (req, res) => {
+exports.getOrders = (req, res) => {
+    console.log(1234);
     res.render('orders', {
         title: 'Orders'
     })

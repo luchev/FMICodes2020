@@ -1,0 +1,11 @@
+extends layout
+
+block head
+
+block content
+  body(style='background-image: url("../assets/FoodBackground.png") !important; background-size: cover;')
+  - var orders = ['order 1', 'order 2']
+
+  for i in orders
+    li= `current value using for-in is ${i}`
+    

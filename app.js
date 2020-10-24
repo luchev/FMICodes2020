@@ -33,7 +33,7 @@ const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
-const orderController = require('./controllers/order')
+const orderController = require('./controllers/order');
 const offersController = require('./controllers/offer')
 const itemsController = require('./controllers/items');
 
@@ -146,7 +146,8 @@ app.post('/reset/:token', userController.postReset);
 app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
 
-app.get('/order/:id', orderController.getOrder);
+app.get('/orders', orderController.getOrders);
+app.get('/order/:id', orderController.getOrderById);
 app.post('/order', orderController.postOrder);
 
 app.get('/contact', contactController.getContact);
