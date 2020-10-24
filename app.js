@@ -35,7 +35,6 @@ const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 const orderController = require('./controllers/order');
 const offersController = require('./controllers/offer')
-const itemsController = require('./controllers/items');
 const restaurantController = require('./controllers/restaurant')
 
 /**
@@ -132,7 +131,6 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
  * Primary app routes.
  */
 app.get('/', homeController.index);
-app.get('/items', itemsController.index);
 app.get('/login', userController.getLogin);
 
 app.post('/login', userController.postLogin);

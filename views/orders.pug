@@ -5,6 +5,17 @@ block head
 block content
   body(style='background-image: url("../assets/FoodBackground.png") !important; background-size: cover;')
   
-  for i in orders
-    li= `current value using for-in is ${i}`
-    
+  .row
+    for order, index in orders
+      .col-lg-4.col-md-4.col-sm-12
+        .card.mt-4.mb-2.p-2.text-white(style="border-radius: 0.8rem; box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); background: linear-gradient(40deg,#ffd86f,#fc6262) !important; opacity: .95;")
+          .card-body
+            .p.card-text.h5
+              if(isRestaurant)
+                | Потребител: #{users[index].email}  <br> 
+              else 
+                | Ресторант: #{restaurants[index].restaurantExtension.restaurantName}  <br> 
+              | Артикул: #{X[index].offer}  <br> 
+              | Цена: #{X[index].price} <br>    
+              | Статус: #{orders[index].state} <br>
+              | #{orders[index].createdAt.toLocaleString()} <br>
