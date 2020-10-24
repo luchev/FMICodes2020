@@ -1,30 +1,15 @@
 extends layout
-mixin item
-  .main-card 
-    .upper-card 
-            img(src="../assets/img/dessert1.jpg").card-thumbnail
-            img(src="../assets/img/dessert2.jpg").card-thumbnail
-            img(src="../assets/img/dessert3.jpg").card-thumbnail
-            img(src="../assets/img/dessert4.jpg").card-thumbnail
-    p.card-title
-    | Име
-    p.offer-items
-    | Оферти
-    p.price
-    | 4.50 лв.
-    .button Поръчване
-
 
 block content
-  p #{offerItems}
+  body.items-body 
+    .row.ml-5.pl-5
+      for offer in X
+        .card.main-card.m-4.p-0
+          .upper-card
+            img(src="../assets/img/dessert1.jpg").card-thumbnail
+          .row.m-4 #{offer.title}
+          .row.mb-4 #{offer.offer}
+          .row.mb-4 #{offer.price}
+          .button.bnt.btn-primary Поръчване
 
-  body.items-body
-    hr
-    .row
-      .col-4
-        +item
-      .col-4
-        +item
-
-        
-          
+      

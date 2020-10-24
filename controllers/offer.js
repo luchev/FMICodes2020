@@ -11,7 +11,7 @@ exports.getOffers = (req, res) => {
 	.then((offers) => {
 		res.render('offers', {
 			title: 'Offers',
-			offerItems: offers,
+			X: offers,
 		})
 	});
 } 
