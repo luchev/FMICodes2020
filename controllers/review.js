@@ -10,7 +10,7 @@ exports.reviewForm = ( req, res ) => {
 };
 
 /* Post a review - bound to review.pug POST */
-exports.postReview = ( req, res, next ) => {
+exports.postReview = async ( req, res, next ) => {
   console.log('here')
   console.log(req.body)
   const review = new Review( {
@@ -23,12 +23,7 @@ exports.postReview = ( req, res, next ) => {
 
   console.log(req.user._id);
 
-  review.save((err) => {
-    if ( err ) {
-      // Failed to save
-      console.log(err);
-    }
-  });
+  review.save();
   res.redirect('/restaurants/' + req.body.restaurantId)
 }; 
 
