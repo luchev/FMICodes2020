@@ -11,20 +11,11 @@ block content
         .card.mt-4.mb-2.p-2.text-white(style="border-radius: 0.8rem; box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); background: linear-gradient(40deg,#ffd86f,#fc6262) !important; opacity: .95;")
           .card-body
             h2.card-title Extra Meal
-            .p.card-text.h4
-              | Some text starting here
-              <br>
-              | text
-              <br>
-              | text
-              <br>
-              | text
-              <br>
-              | text
-              <br>
-              | text
-              <br>
-              | text
+            .p.card-text.h5
+              | From the mist, a shape, a ship, is taking form  <br> 
+              | And the silence of the sea is about to drift into a storm <br>
+              | Sign of power, show of force <br>
+              | Raise the anchor, battleship's plotting its course
     .row.mt-4
       .col-12.col-md-12.Zcol-lg-12  
         //- form.card.card-sm(style="box-shadow: 0 0 15px black;")
@@ -33,5 +24,10 @@ block content
             input.form-control.form-control-lg.form-control-borderless(type="search", placeholder="Search topics or keywords", style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);")
           .col-auto
             button.btn.ml-3.mr-0.text-white.fas.fa-search(type="submit", style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); border-radius: 0.3rem; height: calc(1.5em + 1rem + 2px);padding: 0.5rem 1rem;font-size: 1.25rem;line-height: 1.5; background: linear-gradient(40deg,#ffd86f,#fc6262) !important;")
-            button.btn.ml-3.text-white.fas.fa-map(type="submit", style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); border-radius: 0.3rem; height: calc(1.5em + 1rem + 2px);padding: 0.5rem 1rem;font-size: 1.25rem;line-height: 1.5; background: linear-gradient(40deg,#ffd86f,#fc6262) !important;")
-            
+            button.btn.ml-3.text-white.fas.fa-map(type="submit", href="#", data-toggle="modal", data-target="#modal-map" style="box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); border-radius: 0.3rem; height: calc(1.5em + 1rem + 2px);padding: 0.5rem 1rem;font-size: 1.25rem;line-height: 1.5; background: linear-gradient(40deg,#ffd86f,#fc6262) !important;")
+    .modal(id="modal-map")
+      .modal-dialog.modal-lg
+        .modal-content
+          .modal-header
+            .modal-title Title
+          .modal-body
