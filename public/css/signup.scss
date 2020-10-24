@@ -1,16 +1,17 @@
 @import "UI.scss";
 
+.rounded-input{
+    @extend .curved-panel;
+}
 .register-page{
     @extend .curved-panel;    
-    background-color: $orange;
+    background: linear-gradient(40deg,#ffd86f,#fc6262) !important;
     color: white;
-    padding: 1vw;
-    height: 23vw;
+    height: 25vw;
 }
 
 .register-tab{
-    margin-left:5%;
-    width:40%;
+    width:50%;
     background-color: rgba($orange, 0.5);
     font-size: 1.3em;
 }
@@ -21,4 +22,39 @@
 }
 .register-text:hover{
     color:white;
+}
+
+.tab-page{
+    margin-top:2vw;
+}
+
+.tab-buttons{
+    //padding-left: 10%;
+}
+
+#btn1{
+    border-radius: 2.5vw 0 0 0;
+    text-align: center;
+
+    a{
+        background-color: #fc6262;
+        border-radius: 2.5vw 0 0 0;
+        border: 0;
+        color:white;
+
+    }
+}
+
+#btn2{
+    border-radius: 0 2.5vw 0 0;
+    text-align: center;
+
+    a{
+        background-color: $blue;
+        border-radius: 0 2.5vw 0 0;
+        border: 0;
+        color:white;
+    }
+
+    
 }
