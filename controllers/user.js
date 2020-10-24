@@ -93,10 +93,23 @@ exports.postSignup = (req, res, next) => {
   }
   req.body.email = validator.normalizeEmail(req.body.email, { gmail_remove_dots: false });
 
-  const user = new User({
-    email: req.body.email,
-    password: req.body.password
-  });
+  let user
+  if (req.body.bulstat !== undefined) {
+    user = new User({
+      email: req.body.email,
+      password: req.body.password,
+      restaurantExtension: {
+        restaurantName: req.body.name,
+        address: req.body.address,
+      }
+    });
+  } else {
+    user = new User({
+      email: req.body.email,
+      password: req.body.password,
+      name: req.body.name,
+    });
+  }
 
   User.findOne({ email: req.body.email }, (err, existingUser) => {
     if (err) { return next(err); }

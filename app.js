@@ -32,9 +32,10 @@ dotenv.config({ path: '.env.example' });
 const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
-const contactController = require('./controllers/contact');
 const orderController = require('./controllers/order')
 const offersController = require('./controllers/offer')
+const itemsController = require('./controllers/items');
+const restaurantController = require('./controllers/restaurant')
 
 /**
  * API keys and Passport configuration.
@@ -130,6 +131,7 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
  * Primary app routes.
  */
 app.get('/', homeController.index);
+app.get('/items', itemsController.index);
 app.get('/login', userController.getLogin);
 
 app.post('/login', userController.postLogin);
@@ -147,9 +149,6 @@ app.post('/signup', userController.postSignup);
 app.get('/order/:id', orderController.getOrder);
 app.post('/order', orderController.postOrder);
 
-app.get('/contact', contactController.getContact);
-app.post('/contact', contactController.postContact);
-
 app.get('/account/verify', passportConfig.isAuthenticated, userController.getVerifyEmail);
 app.get('/account/verify/:token', passportConfig.isAuthenticated, userController.getVerifyEmailToken);
 app.get('/account', passportConfig.isAuthenticated, userController.getAccount);
@@ -160,6 +159,9 @@ app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userControl
 
 app.get('/offers/:id', offersController.getOffer);
 app.get('/offers', offersController.getOffers);
+
+app.get('/restaurants/:id', restaurantController.getRestaurant)
+
 /**
  * API examples routes.
  */
