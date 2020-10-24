@@ -1,23 +1,9 @@
 var map;
-var restaurants = [
-    {
-        id: '13tvSDF32fefe',
-        title: 'Bar 69',
-        score: 4.5,
-        latitude: 42.695961,
-        longitude: 23.327274,
-    },
-    {
-        id: 'JASDNGJABG112t13g_',
-        title: 'Beer fest',
-        score: 2,
-        latitude: 42.694970,
-        longitude: 23.327274,
-    },
-];
 
 // Icons: https://www.mappity.org/
 function initMap() {
+    let restaurants = restaurant_list;
+
     var map = new google.maps.Map( document.getElementById( 'map' ), {
         // Set start position
         center: {lat: 42.695961, lng: 23.327274},
@@ -84,23 +70,22 @@ function initMap() {
     //     } );
     // } );
 
-
     // Add markers for restaurants
     var restaurantWindow = null;
     restaurants.forEach( function ( sc ) {
         // Custom pop-up window on click
-        var restaurantPopupContent = `<strong>${sc.title}</strong><br>Рейтинг: ${sc.score}/5<br><br><a href="#${sc.id}">Поръчай сега!</a>`;
+        var restaurantPopupContent = `<strong>${sc.restaurantName}</strong><br>Рейтинг: ${sc.score}/5<br><br><a href="/restaurants/${sc.id}">Поръчай сега!</a>`;
         const infowindow = new google.maps.InfoWindow( {
             content: restaurantPopupContent,
         } );
         var marker = new google.maps.Marker( {
-            position: new google.maps.LatLng( sc.latitude, sc.longitude ),
+            position: new google.maps.LatLng( sc.xCoordinate, sc.yCoordinate ),
             icon: {
                 url: '../assets/img/restaurant_marker.png',
                 scaledSize: new google.maps.Size( 45, 45 )
             },
             map: map,
-            title: sc.title,
+            title: sc.restaurantName,
             animation: google.maps.Animation.DROP
         } );
 
