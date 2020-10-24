@@ -1,9 +1,17 @@
-
 var map;
-var superchargers = [
+var restaurants = [
     {
-        title: 'Bar',
+        id: '13tvSDF32fefe',
+        title: 'Bar 69',
+        score: 4.5,
         latitude: 42.695961,
+        longitude: 23.327274,
+    },
+    {
+        id: 'JASDNGJABG112t13g_',
+        title: 'Beer fest',
+        score: 2,
+        latitude: 42.694970,
         longitude: 23.327274,
     },
 ];
@@ -11,12 +19,12 @@ var superchargers = [
 // Icons: https://www.mappity.org/
 function initMap() {
     var map = new google.maps.Map( document.getElementById( 'map' ), {
+        // Set start position
         center: {lat: 42.695961, lng: 23.327274},
         zoom: 15
     } );
 
-    // Pan to Current Location
-    
+    // Pan to Current Location button
     const locationButton = document.createElement( "button" );
     locationButton.className = 'btn btn-light';
     locationButton.textContent = "Покажи ме на картата";
@@ -58,24 +66,33 @@ function initMap() {
         }
     } );
     
-    var userMarker = null;
-    map.addListener( "click", ( mapsMouseEvent ) => {
-        const pos = JSON.parse(JSON.stringify( mapsMouseEvent.latLng.toJSON(), null, 2 ));
-        if (userMarker) {
-            userMarker.setMap(null);
-        }
-        userMarker = new google.maps.Marker( {
-            position: new google.maps.LatLng( pos.lat, pos.lng ),
-            icon: {
-                url: '../assets/img/user.png',
-                scaledSize: new google.maps.Size( 45, 45 )
-            },
-            map: map,
+    // Put marker on click
+
+    // var userMarker = null;
+    // map.addListener( "click", ( mapsMouseEvent ) => {
+    //     const pos = JSON.parse(JSON.stringify( mapsMouseEvent.latLng.toJSON(), null, 2 ));
+    //     if (userMarker) {
+    //         userMarker.setMap(null);
+    //     }
+    //     userMarker = new google.maps.Marker( {
+    //         position: new google.maps.LatLng( pos.lat, pos.lng ),
+    //         icon: {
+    //             url: '../assets/img/user.png',
+    //             scaledSize: new google.maps.Size( 45, 45 )
+    //         },
+    //         map: map,
+    //     } );
+    // } );
+
+
+    // Add markers for restaurants
+    var restaurantWindow = null;
+    restaurants.forEach( function ( sc ) {
+        // Custom pop-up window on click
+        var restaurantPopupContent = `<strong>${sc.title}</strong><br>Рейтинг: ${sc.score}/5<br><br><a href="#${sc.id}">Поръчай сега!</a>`;
+        const infowindow = new google.maps.InfoWindow( {
+            content: restaurantPopupContent,
         } );
-    } );
-
-
-    superchargers.forEach( function ( sc ) {
         var marker = new google.maps.Marker( {
             position: new google.maps.LatLng( sc.latitude, sc.longitude ),
             icon: {
@@ -85,6 +102,15 @@ function initMap() {
             map: map,
             title: sc.title,
             animation: google.maps.Animation.DROP
+        } );
+
+        // Close old pop-ups
+        marker.addListener( "click", () => {
+            if (restaurantWindow) {
+                restaurantWindow.close();
+            }
+            infowindow.open( map, marker );
+            restaurantWindow = infowindow;
         } );
     } );
 }
