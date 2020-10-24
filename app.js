@@ -36,6 +36,7 @@ const contactController = require('./controllers/contact');
 const orderController = require('./controllers/order')
 const offersController = require('./controllers/offer')
 const itemsController = require('./controllers/items');
+const restaurantController = require('./controllers/restaurant')
 
 /**
  * API keys and Passport configuration.
@@ -162,6 +163,9 @@ app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userControl
 
 app.get('/offers/:id', offersController.getOffer);
 app.get('/offers', offersController.getOffers);
+
+app.get('/restaurants/:id', restaurantController.getRestaurant)
+
 /**
  * API examples routes.
  */
