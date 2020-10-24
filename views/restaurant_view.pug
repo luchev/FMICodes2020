@@ -18,9 +18,13 @@ block content
                   | До: #{offer.endTime.getHours()}:#{offer.endTime.getMinutes()}, #{offer.endTime.getDate()}.#{offer.endTime.getMonth() + 1}
                 h4 Цена: #{offer.price}лв.
                 h4 Останали: #{offer.count}
-                button.col-md-3.btn.btn-primary(type='submit')
-                  i.far
-                  | Поръчай
+                form(method='POST', action=`/order`)
+                  input(type='hidden', name='_csrf', value=_csrf)
+                  input(type='hidden', name='restaurantId', value=`${id}`)
+                  input(type='hidden', name='restaurantId', value=`${user.id}`)
+                  button.col-md-3.btn.btn-primary(type='button')
+                    i.far
+                    | Поръчай
               .col
                 - var url = offer.image;
                 img(src="../assets/img/" + url)
@@ -42,24 +46,24 @@ block content
               | #{offer.text} <br>
             
             h3 Ревюта:
-            if(revies != undefined)
-              for x in reviews
-                li= `current value using for-in is ${x}`
+              for x, index in reviews
+                li= `Ревю номер ${index}: ${x.text}`
+                li= `Оценка: ${x.score} / 5`
 
-            h3 Остави ревю  
-            form(method='POST')
-              input(type='hidden', name='_csrf', value=_csrf)
-              .form-group.row
-                label.col-md-3.col-form-label.font-weight-bold.text-right(for='text') Ревю
-                .col-md-7
-                  input.form-control(type='text', name='text', id='text', placeholder='', autofocus)
-              .form-group.row
-                label.col-md-3.col-form-label.font-weight-bold.text-right(for='score') Оценка
-                .col-md-7
-                  input.form-control(type='number', max=5, min=1  , name='score', id='score', required)
-              .form-group
-                .offset-md-3.col-md-12.pl-2
-                  button.col-md-3.btn.btn-primary(type='submit')
-                    i.far
-                    | Направи Ревю
-
+  h1 Ревю
+  form(method='POST', action=`/review/${id}`)
+    input(type='hidden', name='_csrf', value=_csrf)
+    input(type='hidden', name='restaurantId', value=`${id}`)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='text') Ревю
+      .col-md-7
+        input.form-control(type='text', name='text', id='text', placeholder='', autofocus)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='score') Оценка
+      .col-md-7
+        input.form-control(type='number', max=5, min=1  , name='score', id='score', required)
+    .form-group
+      .offset-md-3.col-md-12.pl-2
+        button.col-md-3.btn.btn-primary(type='submit')
+          i.far
+          | Направи Ревю

@@ -1,4 +1,5 @@
 const Review = require( '../models/Review' );
+const User = require('../models/User');
 /**
  * GET /review
  */
@@ -10,9 +11,11 @@ exports.reviewForm = ( req, res ) => {
 
 /* Post a review - bound to review.pug POST */
 exports.postReview = ( req, res, next ) => {
+  console.log('here')
+  console.log(req.body)
   const review = new Review( {
     user: req.user._id,
-    restaurant: req.user._id, // TODO update with restaurant, this is just an example
+    restaurant: req.body.restaurantId, // TODO update with restaurant, this is just an example
     // restaurant: req.restaurant._id,
     text: req.body.text,
     score: req.body.score,
@@ -26,7 +29,8 @@ exports.postReview = ( req, res, next ) => {
       console.log(err);
     }
   });
-};
+  res.redirect('/restaurants/' + req.body.restaurantId)
+}; 
 
 /* Retrieve all restaurants by given ID */
 function getRestaurantsById(resId) {
