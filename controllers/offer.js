@@ -20,19 +20,19 @@ exports.getOffers = async (req, res) => {
 		restaurants = restaurants.filter(r => r.restaurantExtension.restaurantName !== null)
 		restaurants = restaurants.filter(r => r.restaurantExtension.restaurantName.toLowerCase().startsWith(searchString))
 	}
- 
-	const idToName = {}
-	restaurants.forEach(r => idToName[r._id] = r.restaurantExtension.restaurantName)
 
 	Offer.find({})
 		.sort('-updatedAt')
 		.then(offers => {
+			const idToName = {}
+			restaurants.forEach(r => idToName[r._id] = r.restaurantExtension.restaurantName)
+
 			offers = offers.filter(o => idToName[o.restaurantId] !== undefined)
-			offers.forEach(o => o._doc.restaurantName = idToName[o.restaurantId])
-			
+			offers.forEach(o => o.restaurantName = idToName[o.restaurantId])
+
 			res.render('offers', {
 				title: 'Offers',
-				offerItems: offers,
+				OfferItems: offers,
 			})
 		});
 } 

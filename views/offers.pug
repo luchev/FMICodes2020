@@ -3,13 +3,17 @@ extends layout
 block content
   body.items-body 
     .row.ml-5.pl-5
-      for offer in X
+      script.
+        openRestaurant = (restaurantId) => {
+          window.location.href = "/restaurants/" + restaurantId
+        }
+      for offer in OfferItems
         .card.main-card.m-4.p-0
           .upper-card
             img(src="../assets/img/dessert1.jpg").card-thumbnail
-          .row.m-4 #{offer.title}
-          .row.mb-4 #{offer.offer}
-          .row.mb-4 #{offer.price}
-          .button.bnt.btn-primary Поръчване
+          .row.m-4 #{offer.restaurantName}
+          .row.mb-4 Информация: #{offer.offer}
+          .row.mb-4 Цена: #{offer.price}лв.
+          .button.bnt.btn-primary(type="submit", onclick='openRestaurant("' + offer.restaurantId + '")') Отвори
 
       
