@@ -4,14 +4,16 @@
   }
 
   .body-home-page{
-    background-image: url("../assets/FoodBackground.png") !important; 
+    background-image: url("../assets/img/1_ogduQKQcAgpCEQbb3Uo0Wg.jpeg") !important; 
     background-size: cover;
   }
 
   .info-card{
     border-radius: 0.8rem; 
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); 
-    background: linear-gradient(40deg,#ffd86f,#fc6262) !important; 
+    /* background: linear-gradient(40deg,#ffd86f,#fc6262) !important; */
+    /* background: #f0ede9; */
+    background: linear-gradient(40deg,#f0ede9, white) !important;
     opacity: .95;
   }
 
@@ -63,4 +65,10 @@
 .body-restaurant-page {
     background-image: url("../assets/img/corkBoard.jpg");
     background-size: cover;
+}
+
+.logo-image {
+    height: 60px;
+    width: auto;
+    mix-blend-mode: multiply;
 }
