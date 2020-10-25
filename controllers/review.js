@@ -10,12 +10,7 @@ exports.reviewForm = ( req, res ) => {
 };
 
 /* Post a review - bound to review.pug POST */
-<<<<<<< HEAD
-exports.postReview = async ( req, res, next ) => {
-  console.log('here')
-=======
 exports.postReview = ( req, res, next ) => {
->>>>>>> a3a5c660d4e2a8b86863a2a76768fdee4b1dab9a
   console.log(req.body)
   const review = new Review( {
     user: req.user._id,

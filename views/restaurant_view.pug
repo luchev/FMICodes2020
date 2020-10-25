@@ -18,15 +18,6 @@ block content
                   | До: #{offer.endTime.getHours()}:#{offer.endTime.getMinutes()}, #{offer.endTime.getDate()}.#{offer.endTime.getMonth() + 1}
                 h4 Цена: #{offer.price}лв.
                 h4 Останали: #{offer.count}
-<<<<<<< HEAD
-                form(method='POST', action=`/order`)
-                  input(type='hidden', name='_csrf', value=_csrf)
-                  input(type='hidden', name='restaurantId', value=`${id}`)
-                  input(type='hidden', name='userId', value=`${user.id}`)
-                  button.col-md-3.btn.btn-primary(type='submit')
-                    i.far
-                    | Поръчай
-=======
                 if user
                   form(method='POST', action=`/order`)
                     input(type='hidden', name='_csrf', value=_csrf)
@@ -35,7 +26,6 @@ block content
                     button.col-md-3.btn.btn-primary(type='button')
                       i.far
                       | Поръчай
->>>>>>> a3a5c660d4e2a8b86863a2a76768fdee4b1dab9a
               .col
                 - var url = offer.image;
                 img(src="../assets/img/" + url)
@@ -82,4 +72,3 @@ block content
     div(class="alert alert-danger alert-dismissible deposit-alert" role="alert")
       div(class='container')
         p #message
-        
