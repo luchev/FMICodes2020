@@ -11,25 +11,63 @@ block head
             background-size: cover;
         }
 
+        .order-card{
+            border-radius: 0.8rem; 
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+            background-color: #f0ede9 !important; 
+            /*background: linear-gradient(40deg,#ffd86f,#fc6262); */
+            opacity: .95;
+        }
+
+        .left-inner-card{
+          background-color: #f0ede9 !important;
+          border:transparent;
+        }
+
+        .right-inner-card-active {
+          background-color: #F08080;
+          color: white;
+          font-size: 20px;
+          text-align: center;
+        }
+
+        .right-inner-card-received {
+          background-color: #3CB371;
+          color: white;
+          font-size: 20px;
+          text-align: center;
+        }
+
+
 block content
   body.body-orders-page
   .row
     for order, index in orders
       .col-lg-6.col-md-6.col-sm-12
-        .card.mt-4.mb-2.p-2.text-white(style="border-radius: 0.8rem; box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); background: linear-gradient(40deg,#ffd86f,#fc6262) !important; opacity: .95;")
-          .card-body
-            .p.card-text.h5
-              if(isRestaurant)
-                | Потребител: #{users[index].email}  <br> 
-              else 
-                | Ресторант: #{restaurants[index].restaurantExtension.restaurantName}  <br> 
-              | Цена: #{X[index].price} <br>    
-              | Статус: #{orders[index].state} <br>
-              | #{orders[index].createdAt.toLocaleString()} <br>
-              if(isRestaurant)
-                form(method='POST', action=`/orders/changestatus`)
-                    input(type='hidden', name='orderId', value=`${order.id}`)
-                    .form-group
-                    .offset-md-9.offset-lg-9.col-md-12.pl-2
-                        button.p-1.col-md-3.btn.btn-primary(type='submit') Промени статус 
+        .card.mt-4.mb-2.p-2.order-card
+          .row
+            .card.left-inner-card.ml-2.col-7
+              .card-body
+                .p.card-text.h5
+                  if(isRestaurant)
+                    | Потребител: #{users[index].email}  <br> 
+                  else 
+                    | Ресторант: #{restaurants[index].restaurantExtension.restaurantName}  <br> 
+                  | Цена: #{X[index].price} <br>    
+                  | Статус: #{orders[index].state} <br>
+                  | #{orders[index].createdAt.toLocaleString()} <br>
+                  if(isRestaurant)
+                    form(method='POST', action=`/orders/changestatus`)
+                        input(type='hidden', name='orderId', value=`${order.id}`)
+                        .form-group
+                        .offset-md-9.offset-lg-9.col-md-12.pl-2
+                            button.p-1.col-md-3.btn.btn-primary(type='submit') Промени статус 
+            if(orders[index].state == 'active')
+              .card.right-inner-card-active.rd.col-4
+                .card-body
+                  p Неполучено
+            else 
+              .card.right-inner-card-received.rd.col-4
+                .card-body
+                  p Получено
 

@@ -179,19 +179,26 @@ function initMap() {
     var restaurantWindow = null;
     restaurants.forEach( function ( sc ) {
         // Custom pop-up window on click
-        if (!sc.score) {
-            sc.score = 'Няма';
+        var restaurantPopupContent = `<h4>${sc.restaurantName}</h4>`
+
+        if (sc.rating && sc.rating > 0 && sc.rating <= 5) {
+            restaurantPopupContent += `Рейтинг: `;
+            for (let i = 1; i <= sc.rating; i++) {
+                restaurantPopupContent += `<i class="fas fa-star fa-1x" style="color: #ffb74d !important;"></i>`;
+            }
+            restaurantPopupContent += `<br>`;
         }
-        if (!sc.price || sc.price === 0) {
-            sc.price = Infinity;
+        if (sc.price && sc.price > 0 && sc.price <= 1000) {
+            restaurantPopupContent += `Цена: ${sc.price}лв.<br>`;
         }
-        if (!sc.count) {
-            sc.count = 'Няма';
+        if (sc.count && sc.count > 0) {
+            restaurantPopupContent += `Налични бройки: ${sc.count}<br>`;
         }
         if (!sc.features) {
             sc.features = [];
         }
-        var restaurantPopupContent = `<h4>${sc.restaurantName}</h4>Рейтинг: ${sc.score}<br>Цена: ${sc.price}<br>Налични: ${sc.count}<br><a href="/restaurants/${sc.id}">Поръчай сега!</a>`;
+        
+        restaurantPopupContent += `<a href="/restaurants/${sc.id}">Поръчай сега!</a>`;
         const infowindow = new google.maps.InfoWindow( {
             content: restaurantPopupContent,
         } );
