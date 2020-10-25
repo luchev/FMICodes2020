@@ -1,9 +1,10 @@
 const User = require( '../models/User' );
+const review = require( './review' );
+const Offer = require( '../models/Offer' )
 /**
  * GET /
  * Home page.
  */
-const Offer = require('../models/Offer')
 
 exports.index = async (req, res) => {
   let restaurants = await getAllRestaurants();
@@ -45,5 +46,10 @@ async function getAllRestaurants() {
       [restaurant.price, restaurant.count, restaurant.features] = offers[restaurant.id];
     }
   }
+
+  for ( let restaurant of restaurants ) {
+    restaurant.rating = await review.getAverageRating( restaurant.id );
+  }
+
   return restaurants;
 }

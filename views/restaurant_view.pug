@@ -23,10 +23,19 @@ block content
                     input(type='hidden', name='_csrf', value=_csrf)
                     input(type='hidden', name='restaurantId', value=`${id}`)
                     input(type='hidden', name='userId', value=`${user.id}`)
+                    script(
+                    src='https://checkout.stripe.com/checkout.js',
+                    class='stripe-button',,
+                    data-key=process.env.STRIPE_PKEY,
+                    data-name='Extra Meal',
+                    data-amount=offer.price * 100
+                    data-currency='bgn')
+                    script. 
+                      document.getElementsByClassName("stripe-button-el")[0].style.display = 'none';
                     button.col-md-3.btn.btn-primary(type='submit')
                       i.far
                       | Поръчай
-                    button.col-md-3.btn.btn-primary(type='button')
+                    button.col-md-3.btn.btn-primary(type='submit')
                       i.far
                       | Дари
               .col
