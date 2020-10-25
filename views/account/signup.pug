@@ -1,7 +1,7 @@
 extends ../layout
 
 block content
-  body(style='background-image: url("../assets/FoodBackground.png") !important; background-size: cover;')
+  body(style='background-image: url("../assets/img/1_ogduQKQcAgpCEQbb3Uo0Wg.jpeg") !important; background-size: cover;')
     
     .card-body.tab-content.register-page.p-0.pb-2  
       ul.nav.nav-tabs(role="tablist").tab-buttons
@@ -10,7 +10,7 @@ block content
           li.nav-item.register-tab#btn2
             a.nav-link.register-text(data-toggle="pill" href="#menu2") Ресторант
       
-      #menu1.tab-pane.container.active.row.tab-page
+      #menu1.tab-pane.container.active.row.tab-page.text-dark
         form(id='signup-form-user', method='POST')
           input(type='hidden', name='_csrf', value=_csrf)
           .form-group.row
@@ -41,7 +41,7 @@ block content
                 i.fab.fa-google-plus-g.fa-xs(style='text-align:center')
                 | Вход с Google
       
-      #menu2.tab-pane.container.fade.row.tab-page
+      #menu2.tab-pane.container.fade.row.tab-page.text-dark
         form(id='signup-form-restaurant', method='POST')
           input(type='hidden', name='_csrf', value=_csrf)
           .form-group.row
