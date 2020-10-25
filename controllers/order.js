@@ -120,8 +120,8 @@ exports.postOrder = async (req, res) => {
     }
   
     if (validationErrors.length) {
-      console.log('in the right place');
-      res.send(400, validationErrors);
+      req.flash('errors', validationErrors);
+      res.redirect('/restaurants/' + req.body.restaurantId);
     }
     else {
       const order = new Order({

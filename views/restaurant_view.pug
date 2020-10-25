@@ -67,3 +67,8 @@ block content
         button.col-md-3.btn.btn-primary(type='submit')
           i.far
           | Направи Ревю
+  if(error && error.length > 0)
+    div(class="alert alert-danger alert-dismissible deposit-alert" role="alert")
+      div(class='container')
+        p #message
+        
