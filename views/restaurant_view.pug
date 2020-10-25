@@ -18,13 +18,14 @@ block content
                   | До: #{offer.endTime.getHours()}:#{offer.endTime.getMinutes()}, #{offer.endTime.getDate()}.#{offer.endTime.getMonth() + 1}
                 h4 Цена: #{offer.price}лв.
                 h4 Останали: #{offer.count}
-                form(method='POST', action=`/order`)
-                  input(type='hidden', name='_csrf', value=_csrf)
-                  input(type='hidden', name='restaurantId', value=`${id}`)
-                  input(type='hidden', name='restaurantId', value=`${user.id}`)
-                  button.col-md-3.btn.btn-primary(type='button')
-                    i.far
-                    | Поръчай
+                if user
+                  form(method='POST', action=`/order`)
+                    input(type='hidden', name='_csrf', value=_csrf)
+                    input(type='hidden', name='restaurantId', value=`${id}`)
+                    input(type='hidden', name='restaurantId', value=`${user.id}`)
+                    button.col-md-3.btn.btn-primary(type='button')
+                      i.far
+                      | Поръчай
               .col
                 - var url = offer.image;
                 img(src="../assets/img/" + url)
