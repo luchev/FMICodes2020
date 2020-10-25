@@ -1,6 +1,6 @@
 extends layout
 
-block content
+block content 
   body.items-body 
     .row.ml-5.pl-5
       script.
@@ -10,10 +10,16 @@ block content
       for offer in OfferItems
         .card.main-card.m-4.p-0
           .upper-card
-            img(src="../assets/img/dessert1.jpg").card-thumbnail
-          .row.m-4 #{offer.restaurantName}
-          .row.mb-4 Оценка: #{offer.averageRating}
-          .row.mb-4 Цена: #{offer.price}лв.
-          .button.bnt.btn-primary(type="submit", onclick='openRestaurant("' + offer.restaurantId + '")') Отвори
-
-      
+            img(src=`${offer.image}`).card-thumbnail
+          .row.mt-4
+            h5 #{offer.restaurantName}
+          .row.mt-2
+            .d-flex.justify-content-center
+              .content.text-center
+                  .ratings
+                    -let i = 0
+                    while i++ < offer.averageRating
+                      i(style="color: #ffb74d !important;").fas.fa-star.fa-2x
+          .row.mt-3 
+            h6 Цена: <strong>#{offer.price}</strong> лв.
+          .button.bnt.btn-primary(type="submit", onclick='openRestaurant("' + offer.restaurantId + '")' style="background: linear-gradient(40deg,#45cafc,#303f9f) !important;") Отвори

@@ -23,7 +23,8 @@
     @extend .curved-panel;
     width: 15vw;
     height: 14vw;
-    background:linear-gradient(40deg,rgba(255, 216, 111, 0.8),rgba(252, 98, 98, 0.8)) !important;
+    background:linear-gradient(40deg,rgba(255, 216, 111, 0.65),rgba(252, 98, 98, 0.65)) !important;
+    //background: rgba(244, 67, 54, 0.1);
 
     display: flex;
     flex-wrap: wrap;
@@ -49,8 +50,8 @@
   .card-thumbnail{
     margin-left: 0.25vw;
     margin-right: 0.25vw;
-    width:7.5vw;
-    height:7.5vw;
+    width: 100%;
+    height: 100%;
     border-radius: 2.5vw 2.5vw 2.5vw 0.5vw;
   } 
 
