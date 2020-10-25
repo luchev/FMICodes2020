@@ -14,8 +14,9 @@ const offerSchema = new mongoose.Schema({
   count: Number,
   startTime: Date,
   endTime: Date,
+  features: [],
 
-  image: String
+  image: String,
 }, { timestamps: true });
 
 const Offer = mongoose.model('Offer', offerSchema);

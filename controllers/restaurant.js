@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const Offer = require('../models/Offer');
 const Review = require('../models/Review');
+const possible_features = ['vegan', 'keto', 'shop', 'gluten', 'sugar'];
 
 /**
  * GET /restaurants/:id
@@ -39,6 +40,7 @@ exports.getRestaurant = async (req, res) => {
 				startTime: Date.now(),
 				endTime: Date.now(),
 				image: '',
+				features: [],
 			});
 			offer.save();
 		}
@@ -76,6 +78,13 @@ exports.postRestaurant = async ( req, res ) => {
 	user.restaurantExtension.address = req.body.address;
 	await User.updateOne( {_id: user._id}, {restaurantExtension: user.restaurantExtension});
 
+	let features = []
+	for ( let opt of possible_features) {
+		if (req.body[opt]) {
+			features.push(opt);
+		}
+	}
+
 	let offerUpdate = {
 		title: req.body.title,
 		offer: req.body.offer,
@@ -84,6 +93,7 @@ exports.postRestaurant = async ( req, res ) => {
 		startTime: Date.parse(req.body.startTime),
 		endTime: Date.parse(req.body.endTime),
 		image: req.body.image,
+		features: features,
 	}
 
 	await Offer.updateOne( {restaurantId: user._id}, offerUpdate );

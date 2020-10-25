@@ -1,5 +1,6 @@
 const Offer = require('../models/Offer');
-const User = require('../models/User')
+const User = require('../models/User');
+const review = require('./review');
 
 /**
  * GET /offers
@@ -23,12 +24,26 @@ exports.getOffers = async (req, res) => {
 
 	Offer.find({})
 		.sort('-updatedAt')
-		.then(offers => {
+		.then(async offers => {
+			const promises = []
+			restaurants.forEach(r => promises.push(review.getAverageRating(r._id)))
+			const p = await Promise.all(promises)
+
+			for (let i = 0; i < p.length; i++) {
+				restaurants[i].averageRating = p[i];
+			}
+
 			const idToName = {}
 			restaurants.forEach(r => idToName[r._id] = r.restaurantExtension.restaurantName)
 
+			const idToScore = {}
+			restaurants.forEach(r => idToScore[r._id] = r.averageRating)
+
 			offers = offers.filter(o => idToName[o.restaurantId] !== undefined)
-			offers.forEach(o => o.restaurantName = idToName[o.restaurantId])
+			offers.forEach(o => {
+				o.restaurantName = idToName[o.restaurantId];
+				o.averageRating = idToScore[o.restaurantId]
+			})
 
 			res.render('offers', {
 				title: 'Offers',
