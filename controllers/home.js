@@ -36,17 +36,14 @@ async function getAllRestaurants() {
       res.redirect('/');
     }
     for ( const offer of Array.from( result ) ) {
-      if (offer.price > 0) {
-        offers[offer.restaurantId] = [offer.price, offer.count]
-      }
+      offers[offer.restaurantId] = [offer.price, offer.count, offer.features];
     }
   });
-  
+
   for (let restaurant of restaurants) {
     if (offers[restaurant.id]) {
-      [restaurant.price, restaurant.count] = offers[restaurant.id];
+      [restaurant.price, restaurant.count, restaurant.features] = offers[restaurant.id];
     }
   }
-
   return restaurants;
 }

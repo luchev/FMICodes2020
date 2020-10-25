@@ -4,6 +4,7 @@ var userPosition = null;
 let restaurants = null;
 var maxDistance = Infinity;
 var maxPrice = Infinity;
+var checks = new Set();
 
 function filterMarkers() {
     if ( !userPosition || !restaurants ) {
@@ -20,7 +21,6 @@ function filterMarkers() {
         }
     }
 
-    console.log(restaurants);
     for ( let i = 0; i < markers.length; i++ ) {
         if ( restaurants[i].distance <= maxDistance && restaurants[i].price <= maxPrice ) {
             markers[i].setMap( map );
@@ -122,7 +122,7 @@ function initMap() {
         if (!sc.score) {
             sc.score = 'Няма';
         }
-        if (!sc.price) {
+        if (!sc.price || sc.price === 0) {
             sc.price = Infinity;
         }
         if (!sc.count) {
@@ -132,10 +132,22 @@ function initMap() {
         const infowindow = new google.maps.InfoWindow( {
             content: restaurantPopupContent,
         } );
+        let icon = 'marker_red_restaurant.png';
+        if (sc.features && sc.features.includes('shop')) {
+            icon = 'marker_shop.png';
+        } else if ( sc.features && sc.features.includes( 'vegan' ) ) {
+            icon = 'marker_green_restaurant.png';
+        } else if ( sc.features && sc.features.includes( 'keto' ) ) {
+            icon = 'marker_blue_restaurant.png';
+        } else if ( sc.features && sc.features.includes( 'sugar' ) ) {
+            icon = 'marker_cyan_restaurant.png';
+        } else if ( sc.features && sc.features.includes( 'gluten' ) ) {
+            icon = 'marker_pink_restaurant.png';
+        }
         var marker = new google.maps.Marker( {
             position: new google.maps.LatLng( sc.xCoordinate, sc.yCoordinate ),
             icon: {
-                url: '../assets/img/restaurant_marker.png',
+                url: '../assets/img/' + icon,
                 scaledSize: new google.maps.Size( 45, 45 )
             },
             map: map,
