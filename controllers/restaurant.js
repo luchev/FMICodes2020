@@ -46,26 +46,25 @@ exports.getRestaurant = async (req, res) => {
 		}
 	})
 
-	let reviews
-	await Review.find({restaurant: id}, (err, foundReviews) => {
+	Review.find({restaurant: id}, (err, foundReviews) => {
 		if (err) {
 			res.redirect('/')
 		}
-		reviews = foundReviews
-	});
-	// console.log(reviews)
+		return foundReviews
+	}).then((reviews) => {
+		let renderPage = 'restaurant_view';
+		if ( req.user && id === req.user.id ) {
+			renderPage = 'restaurant_edit';
+		}
 
-	let renderPage = 'restaurant_view';
-	if ( req.user && id === req.user.id ) {
-		renderPage = 'restaurant_edit';
-	}
-
-	res.render(renderPage, {
-		title: 'Restaurant',
-		restaurant: restaurant,
-		offer: offer,
-		reviews: reviews,
+		res.render(renderPage, {
+			title: 'Restaurant',
+			restaurant: restaurant,
+			offer: offer,
+			reviews: reviews,
+		});
 	});
+
 }
 /**
  * POST /restaurants/:id

@@ -42,7 +42,7 @@ block content
                 form
                   .form-group
                     label(for="slider-price") Цена: 
-                    input(type="range", min="1", max="30", id="slider-price")
+                    input(type="range", min="1", max="30", value="30" id="slider-price")
                     p Цена под: &nbsp
                       span(id="price-to")
                       span лв.
@@ -52,7 +52,7 @@ block content
                         sliderPrice.oninput = () => {sliderHandler(sliderPrice, document.getElementById("price-to")) };
                     <br>
                     label(for="slider-distance") Дистанция: 
-                    input(type="range", min="1", max="3000", value="1500", id="slider-distance")
+                    input(type="range", min="1", max="3000", value="3000", id="slider-distance")
                     p Дистанция под: &nbsp
                       span(id="distance-to")
                       span м.
@@ -89,7 +89,13 @@ block content
                             span.fas.fa-leaf
                             span &nbsp
                           label.btn.btn-default.active(for="sugar-free-checkbox") Sugar-free
-                    .button.btn.btn-primary.bottom-left-align Search  
+                      .form-group.col-12
+                        input(type="checkbox", name="shop-checkbox", id="shop-checkbox", autocomplete="off")
+                        .btn-group
+                          label.btn.btn-success(for="shop-checkbox")
+                            span.fas.fa-leaf
+                            span &nbsp
+                          label.btn.btn-default.active(for="shop-checkbox") Магазин
                       
 
               .col-10
