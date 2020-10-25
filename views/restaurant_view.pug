@@ -7,13 +7,13 @@ block content
     .col-lg-12.col-md-12.col-sm-12
         .card.mt-4.mb-2.p-2(style="border-radius: 0.8rem; box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); background: rgb(240, 237, 233)")
           .row.mt-4
-            .col-4.ml-4
+            .col-4.ml-5
               - var url = offer.image;
-              img(src=url).card-thumbnail
-            .col-6.ml-4
+              img(src=url style="max-height: 260px; max-width: 260px;").card-thumbnail
+            .col-6
                 h1 <strong>Ресторант #{restaurant.restaurantName} </strong>
                 h4 <strong>Адрес</strong>: #{restaurant.address}
-                h4 <strong>Предлага</strong>: #{offer.title}
+                h4 <strong>Предлага</strong>: #{offer.offer}
                 h4
                   | <strong>От</strong>: #{offer.startTime.getHours()}:#{offer.startTime.getMinutes()}&nbsp/&nbsp#{offer.startTime.getDate()}.#{offer.startTime.getMonth() + 1}
                   | &nbsp
@@ -21,7 +21,7 @@ block content
                 h4 <strong>Цена</strong>: #{offer.price} лв.
                 h4 <strong>Останали</strong>: #{offer.count}
           .card-body
-            .row
+            .row.ml-4.mr-4.mt-4
               .col
                 if user
                   form(method='POST', action=`/order`)
@@ -29,18 +29,18 @@ block content
                     input(type='hidden', name='restaurantId', value=`${id}`)
                     input(type='hidden', name='userId', value=`${user.id}`)
                     script(
-                    src='https://checkout.stripe.com/checkout.js',
-                    class='stripe-button',,
-                    data-key=process.env.STRIPE_PKEY,
-                    data-name='Extra Meal',
-                    data-amount=offer.price * 100
-                    data-currency='bgn')
+                      src='https://checkout.stripe.com/checkout.js',
+                      class='stripe-button',,
+                      data-key=process.env.STRIPE_PKEY,
+                      data-name='Extra Meal',
+                      data-amount=offer.price * 100
+                      data-currency='bgn')
                     script. 
                       document.getElementsByClassName("stripe-button-el")[0].style.display = 'none';
-                    button.col-md-3.btn.btn-primary(type='submit')
+                    button.mt-1.col-md-6.col-sm-12.btn.btn-primary(type='submit')
                       i.far
                       | Поръчай
-                    button.col-md-3.btn.btn-primary(type='submit')
+                    button.mt-1.col-md-6.col-sm-12.btn.btn-primary(type='submit')
                       i.far
                       | Дари
             .row.ml-4.mt-3
@@ -51,7 +51,7 @@ block content
             .add-scroll.overflow-auto.disable-scrollbars
               .row.ml-4
                 for x, index in reviews
-                  .row.col-12.mb-3
+                  .row.col-12.mb-2
                     .card.col-12
                       .mt-3.d-flex.justify-content-center
                         .content.text-center
@@ -63,21 +63,42 @@ block content
                         .card-body 
                           p <strong>Отзив</strong>: #{x.text}
 
-            h3 Остави ревю
-              form(method='POST', action=`/review/${id}`)
+            h3.mt-3 <strong>Остави ревю</strong>
+              form(method='POST', action=`/review/${id}`).mt-4.ml-5.mr-5
                 input(type='hidden', name='_csrf', value=_csrf)
                 input(type='hidden', name='restaurantId', value=`${id}`)
+                script.
+                  function star(num) {
+                    console.log("here");
+                    document.getElementById("score").value = num;
+
+                    let ids = ['s1', 's2', 's3', 's4', 's5'];
+
+                    ids.forEach(id => {
+                      document.getElementById(id).style.color = "black";
+                    });
+
+                    for (let i = 0; i < num; i++) {
+                      document.getElementById(ids[i]).style.color = "#ffb74d";
+                    }
+
+                    document.getElementById("score").value=num;
+                  }
                 .form-group.row
-                  label.col-md-3.col-form-label.font-weight-bold.text-right(for='text') Ревю
-                  .col-md-7
-                    input.form-control(type='text', name='text', id='text', placeholder='', autofocus)
+                  .col-md-4.col-md-12
+                    textarea.form-control(name='text', id='text', placeholder='Ревю', autofocus, requred)
                 .form-group.row
-                  label.col-md-3.col-form-label.font-weight-bold.text-right(for='score') Оценка
-                  .col-md-7
-                    input.form-control(type='number', max=5, min=1  , name='score', id='score', required)
+                  .col-md-7.col-md-12
+                    .d-flex.justify-content-center
+                      div(id="s1", onclick="star(1)").fas.fa-star.fa-2x
+                      div(id="s2", onclick="star(2)").fas.fa-star.fa-2x
+                      div(id="s3", onclick="star(3)").fas.fa-star.fa-2x
+                      div(id="s4", onclick="star(4)").fas.fa-star.fa-2x
+                      div(id="s5", onclick="star(5)").fas.fa-star.fa-2x
+                    input.form-control(type='hidden', name='score', id='score', value="2.56", required)
                 .form-group
-                  .offset-md-3.col-md-12.pl-2
-                    button.col-md-3.btn.btn-primary(type='submit')
+                  .d-flex.justify-content-center
+                    button.mt-3.col-md-4.btn.btn-primary(type='submit')
                       i.far
                       | Направи Ревю
             if(error && error.length > 0)
