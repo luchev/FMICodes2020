@@ -71,8 +71,8 @@ block content
                 .card-body
                   p.mt-2 Получено
                   if(isRestaurant)
-                  form(method='POST', action=`/orders/changestatus`)
-                      input(type='hidden', name='orderId', value=`${order.id}`)
-                      .form-group
-                        button.p-1.mt-5.btn.btn-primary(type='submit') Промени статус
+                    form(method='POST', action=`/orders/changestatus`)
+                        input(type='hidden', name='orderId', value=`${order.id}`)
+                        .form-group
+                          button.p-1.mt-5.btn.btn-primary(type='submit') Промени статус
 
