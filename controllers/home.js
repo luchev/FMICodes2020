@@ -8,9 +8,10 @@ const Offer = require( '../models/Offer' )
 
 exports.index = async (req, res) => {
   let restaurants = await getAllRestaurants();
+  restaurants = JSON.stringify( restaurants );
   res.render('home', {
     title: 'Home',
-    restaurants: JSON.stringify(restaurants),
+    restaurants: restaurants,
   });
 };
 
@@ -45,10 +46,8 @@ async function getAllRestaurants() {
     if (offers[restaurant.id]) {
       [restaurant.price, restaurant.count, restaurant.features] = offers[restaurant.id];
     }
-  }
-
-  for ( let restaurant of restaurants ) {
     restaurant.rating = await review.getAverageRating( restaurant.id );
+    restaurant.address = '';
   }
 
   return restaurants;

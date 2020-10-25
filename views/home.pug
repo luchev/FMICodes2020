@@ -101,9 +101,11 @@ block content
               .col-10
                 #map
                 script.
-                  var textArea = document.createElement('textarea');
-                  textArea.id = 'restaurants';
-                  textArea.innerHTML = `#{restaurants}`;
-                  var restaurant_list = JSON.parse(textArea.value);
+                  function htmlDecode(input) {
+                    var doc = new DOMParser().parseFromString(input, "text/html");
+                    return doc.documentElement.textContent;
+                  }
+                  var restaurant_str = `#{restaurants}`;
+                  var restaurant_list = JSON.parse(htmlDecode(restaurant_str));
                 script(src='/js/map.js')
                 script(async defer src=`https://maps.googleapis.com/maps/api/js?key=` + process.env.GOOGLE_MAP_API_KEY +`&callback=initMap`)
