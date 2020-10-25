@@ -5,8 +5,8 @@
   
   .main-card{
     @extend .curved-panel;
-    width: 15vw;
-    height: 26vw;
+    // max-width: 150px;
+    // max-height: 26vw;
     background-color: rgb(240, 237, 233);
   
     display: flex;
@@ -21,8 +21,8 @@
   
   .upper-card{
     @extend .curved-panel;
-    width: 15vw;
-    height: 14vw;
+    // max-width: 150px;
+    // max-height: 100px;
     background:linear-gradient(40deg,rgba(255, 216, 111, 0.65),rgba(252, 98, 98, 0.65)) !important;
     //background: rgba(244, 67, 54, 0.1);
 

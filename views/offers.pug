@@ -2,24 +2,24 @@ extends layout
 
 block content 
   body.items-body 
-    .row.ml-5.pl-5
+    .row.d-flex.justify-content-center
       script.
         openRestaurant = (restaurantId) => {
           window.location.href = "/restaurants/" + restaurantId
         }
       for offer in OfferItems
-        .card.main-card.m-4.p-0
-          .upper-card
-            img(src=`${offer.image}`).card-thumbnail
-          .row.mt-4
-            h5 #{offer.restaurantName}
-          .row.mt-2
-            .d-flex.justify-content-center
-              .content.text-center
+        .card.m-4(style="width:300px; height:500px; background-color: rgb(240, 237, 233);").curved-panel
+          img(src=`${offer.image}`, style="height: 260px;").card-img-top.curved-panel
+          .card-body.md-4
+            .title.d-flex.justify-content-center
+              h5 #{offer.restaurantName}
+            .card-text.md-5
+              .content.text-center.d-flex.justify-content-center
                   .ratings
                     -let i = 0
                     while i++ < offer.averageRating
                       i(style="color: #ffb74d !important;").fas.fa-star.fa-2x
-          .row.mt-3 
-            h6 Цена: <strong>#{offer.price}</strong> лв.
-          .button.bnt.btn-outline-primary(type="submit", onclick='openRestaurant("' + offer.restaurantId + '")') Отвори
+            .card-text.d-flex.justify-content-center.mt-5
+              h6 Цена: <strong>#{offer.price}</strong> лв.
+            .card-text.d-flex.justify-content-center.mt-4
+              button.bnt.btn-primary(type="submit", onclick='openRestaurant("' + offer.restaurantId + '")', style="width:120px; height:40px; border-radius: 2.5vw 2.5vw 2.5vw 2.5vw;") Отвори
