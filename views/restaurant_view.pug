@@ -3,21 +3,26 @@ extends layout
 block head
 
 block content
-  body(style='background-image: url("../assets/FoodBackground.png") !important; background-size: cover;')
+  body(style='background-image: url("../assets/img/1_ogduQKQcAgpCEQbb3Uo0Wg.jpeg") !important; background-size: cover;')
     .col-lg-12.col-md-12.col-sm-12
-        .card.mt-4.mb-2.p-2.text-white(style="border-radius: 0.8rem; box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); background: linear-gradient(40deg,#ffd86f,#fc6262) !important; opacity: .95;")
+        .card.mt-4.mb-2.p-2(style="border-radius: 0.8rem; box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); background: rgb(240, 237, 233)")
+          .row.mt-4
+            .col-4.ml-4
+              - var url = offer.image;
+              img(src=url).card-thumbnail
+            .col-6.ml-4
+                h1 <strong>Ресторант #{restaurant.restaurantName} </strong>
+                h4 <strong>Адрес</strong>: #{restaurant.address}
+                h4 <strong>Предлага</strong>: #{offer.title}
+                h4
+                  | <strong>От</strong>: #{offer.startTime.getHours()}:#{offer.startTime.getMinutes()}&nbsp/&nbsp#{offer.startTime.getDate()}.#{offer.startTime.getMonth() + 1}
+                  | &nbsp
+                  | <strong>До</strong>: #{offer.endTime.getHours()}:#{offer.endTime.getMinutes()}&nbsp/&nbsp#{offer.endTime.getDate()}.#{offer.endTime.getMonth() + 1}
+                h4 <strong>Цена</strong>: #{offer.price} лв.
+                h4 <strong>Останали</strong>: #{offer.count}
           .card-body
             .row
               .col
-                h1 Ресторант #{restaurant.restaurantName}
-                h3 Адрес: #{restaurant.address}
-                h4 Предлага: #{offer.title}
-                h4
-                  | От: #{offer.startTime.getHours()}:#{offer.startTime.getMinutes()}, #{offer.startTime.getDate()}.#{offer.startTime.getMonth() + 1}
-                  br
-                  | До: #{offer.endTime.getHours()}:#{offer.endTime.getMinutes()}, #{offer.endTime.getDate()}.#{offer.endTime.getMonth() + 1}
-                h4 Цена: #{offer.price}лв.
-                h4 Останали: #{offer.count}
                 if user
                   form(method='POST', action=`/order`)
                     input(type='hidden', name='_csrf', value=_csrf)
@@ -29,32 +34,25 @@ block content
                     button.col-md-3.btn.btn-primary(type='button')
                       i.far
                       | Дари
-              .col
-                - var url = offer.image;
-                img(src="../assets/img/" + url)
-                
-
-            //-Оферта { 
-              _id: 5f9466e61f3fca568804c477, 
-              restaurantId: 5f9466e21f3fca568804c476, 
-              title: 'Пилешка пържола', 
-              offer: 'Пържола - пилешка', 
-              price: 12, 
-              count: 0, 
-              startTime: 2020-10-24T17:39:50.000Z, 
-              endTime: 2020-10-26T17:39:50.000Z, 
-              image: '', 
-              createdAt: 2020-10-24T17:39:50.992Z, 
-              updatedAt: 2020-10-24T17:55:32.956Z, __v: 0 }
-            .p.card-text.h5
-              | #{offer.text} <br>
-            
-            .row
-              h4 Ревюта:
-                ul
-                  for x, index in reviews
-                    li= `Ревю #${index}: ${x.text}`
-                    li= `Оценка: ${x.score} / 5`
+            .row.ml-4.mt-3
+              .p.card-text.h5
+              | #{offer.text}
+            .row.ml-4.mt-3.mb-2
+              h3 <strong>Ревюта:</strong>
+            .add-scroll.overflow-auto.disable-scrollbars
+              .row.ml-4
+                for x, index in reviews
+                  .row.col-12.mb-3
+                    .card.col-12
+                      .mt-3.d-flex.justify-content-center
+                        .content.text-center
+                            .ratings
+                              -let i = 0
+                              while i++ < x.score
+                                i(style="color: #ffb74d !important;").fas.fa-star.fa-2x
+                      if (x.text)
+                        .card-body 
+                          p <strong>Отзив</strong>: #{x.text}
 
             h3 Остави ревю
               form(method='POST', action=`/review/${id}`)
