@@ -5,12 +5,12 @@ block head
 block content
   body(style='background-image: url("../assets/img/1_ogduQKQcAgpCEQbb3Uo0Wg.jpeg") !important; background-size: cover;')
     .col-lg-12.col-md-12.col-sm-12
-        .card.mt-4.mb-2.p-2(style="border-radius: 0.8rem; box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); background: rgb(240, 237, 233)")
+        .card(style="border-radius: 0.8rem; box-shadow: 0 0 15px rgba(0, 0, 0, 0.7); background: rgb(240, 237, 233)")
           .row.mt-4
-            .col-4.ml-5
+            .col-sm-4.d-flex.justify-content-center
               - var url = offer.image;
-              img(src=url style="max-height: 260px; max-width: 260px;").card-thumbnail
-            .col-6
+              img(src=url style="max-width: 90%; max-height: 100%; border-radius: 2.5vw 2.5vw 2.5vw 2.5vw;")
+            .col-sm-7.ml-2
                 h1 <strong>Ресторант #{restaurant.restaurantName} </strong>
                 h4 <strong>Адрес</strong>: #{restaurant.address}
                 h4 <strong>Предлага</strong>: #{offer.offer}
@@ -63,45 +63,45 @@ block content
                         .card-body 
                           p <strong>Отзив</strong>: #{x.text}
 
-            h3.mt-3 <strong>Остави ревю</strong>
-              form(method='POST', action=`/review/${id}`).mt-4.ml-5.mr-5
-                input(type='hidden', name='_csrf', value=_csrf)
-                input(type='hidden', name='restaurantId', value=`${id}`)
-                script.
-                  function star(num) {
-                    console.log("here");
-                    document.getElementById("score").value = num;
+            h3.mt-3.ml-4 <strong>Остави ревю</strong>
+            form(method='POST', action=`/review/${id}`).mt-4.ml-4.mr-4
+              input(type='hidden', name='_csrf', value=_csrf)
+              input(type='hidden', name='restaurantId', value=`${id}`)
+              script.
+                function star(num) {
+                  console.log("here");
+                  document.getElementById("score").value = num;
 
-                    let ids = ['s1', 's2', 's3', 's4', 's5'];
+                  let ids = ['s1', 's2', 's3', 's4', 's5'];
 
-                    ids.forEach(id => {
-                      document.getElementById(id).style.color = "black";
-                    });
+                  ids.forEach(id => {
+                    document.getElementById(id).style.color = "black";
+                  });
 
-                    for (let i = 0; i < num; i++) {
-                      document.getElementById(ids[i]).style.color = "#ffb74d";
-                    }
-
-                    document.getElementById("score").value=num;
+                  for (let i = 0; i < num; i++) {
+                    document.getElementById(ids[i]).style.color = "#ffb74d";
                   }
-                .form-group.row
-                  .col-md-4.col-md-12
-                    textarea.form-control(name='text', id='text', placeholder='Ревю', requred)
-                .form-group.row
-                  .col-md-7.col-md-12
-                    .d-flex.justify-content-center
-                      div(id="s1", onclick="star(1)").fas.fa-star.fa-2x
-                      div(id="s2", onclick="star(2)").fas.fa-star.fa-2x
-                      div(id="s3", onclick="star(3)").fas.fa-star.fa-2x
-                      div(id="s4", onclick="star(4)").fas.fa-star.fa-2x
-                      div(id="s5", onclick="star(5)").fas.fa-star.fa-2x
-                    input.form-control(type='hidden', name='score', id='score', value="2.56", required)
-                .form-group
+
+                  document.getElementById("score").value=num;
+                }
+              .form-group.row
+                .col-md-4.col-md-12
+                  textarea.form-control(name='text', id='text', placeholder='Ревю', requred)
+              .form-group.row
+                .col-md-7.col-md-12
                   .d-flex.justify-content-center
-                    button.mt-3.col-md-4.btn.btn-primary(type='submit')
-                      i.far
-                      | Направи Ревю
-            if(error && error.length > 0)
-              div(class="alert alert-danger alert-dismissible deposit-alert" role="alert")
-                div(class='container')
-                  p #message
+                    div(id="s1", onclick="star(1)").fas.fa-star.fa-2x
+                    div(id="s2", onclick="star(2)").fas.fa-star.fa-2x
+                    div(id="s3", onclick="star(3)").fas.fa-star.fa-2x
+                    div(id="s4", onclick="star(4)").fas.fa-star.fa-2x
+                    div(id="s5", onclick="star(5)").fas.fa-star.fa-2x
+                  input.form-control(type='hidden', name='score', id='score', value="2.56", required)
+              .form-group
+                .d-flex.justify-content-center
+                  button.mt-3.col-md-4.btn.btn-primary(type='submit')
+                    i.far
+                    | Направи Ревю
+          if(error && error.length > 0)
+            div(class="alert alert-danger alert-dismissible deposit-alert" role="alert")
+              div(class='container')
+                p #message
