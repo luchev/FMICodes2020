@@ -11,7 +11,6 @@ exports.reviewForm = ( req, res ) => {
 
 /* Post a review - bound to review.pug POST */
 exports.postReview = ( req, res, next ) => {
-  console.log('here')
   console.log(req.body)
   const review = new Review( {
     user: req.user._id,
@@ -33,7 +32,7 @@ exports.postReview = ( req, res, next ) => {
 }; 
 
 /* Retrieve all restaurants by given ID */
-function getRestaurantsById(resId) {
+exports.getReviewsForRestaurant = (resId) => {
   return Review.find( {restaurant: resId}, ( err, restaurants ) => {
     if ( err ) {
       return [];
@@ -46,12 +45,26 @@ function getRestaurantsById(resId) {
 // Examples
 function exampleReviews() {
   // Get all reviews for given user ID
-  getRestaurantsById( req.user._id ).then( ( restaurants ) => {
+  getReviewsForRestaurant( req.user._id ).then( ( restaurants ) => {
     console.log( restaurants );
   } );
 
   // Get all reviews for given restaurant ID
-  getRestaurantsById( req.restaurant._id ).then( ( restaurants ) => {
+  getReviewsForRestaurant( req.restaurant._id ).then( ( restaurants ) => {
     console.log( restaurants );
   } );
+}
+
+exports.getAverageRating = async (resId) => {
+  reviews = await this.getReviewsForRestaurant(resId);
+
+  const average = arr => arr.reduce( ( p, c ) => p + c, 0 ) / arr.length;
+  const scores = reviews.map(r => r.score);
+
+  if (scores.length == 0) {
+    return 0;
+  }
+
+  const averageRating = average(scores);
+  return averageRating;
 }

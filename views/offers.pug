@@ -12,7 +12,7 @@ block content
           .upper-card
             img(src="../assets/img/dessert1.jpg").card-thumbnail
           .row.m-4 #{offer.restaurantName}
-          .row.mb-4 Информация: #{offer.offer}
+          .row.mb-4 Оценка: #{offer.averageRating}
           .row.mb-4 Цена: #{offer.price}лв.
           .button.bnt.btn-primary(type="submit", onclick='openRestaurant("' + offer.restaurantId + '")') Отвори
 
