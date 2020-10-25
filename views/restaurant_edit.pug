@@ -26,69 +26,69 @@ block content
       .modal-content(style="z-index:1100 !important;")
         .modal-body
           form(method='POST', action='/offers/update')
-            .form-group
-              .form-group.row
+            .form-group.mt-2
+              .form-group.row.d-flex.justify-content-center
                 label.col-md-3.col-form-label.font-weight-bold.text-right(for='title') Оферта:
                 .col-md-7
                   input.form-control(type='text', name='title', id='title', value=`${offer.title}`)
-              .form-group.row
+              .form-group.row.d-flex.justify-content-center
                 label.col-md-3.col-form-label.font-weight-bold.text-right(for='offer') Описание:
                 .col-md-7
                   input.form-control(type='test', step='any', name='offer', id='offer', value=`${offer.offer}`)
-              .form-group.row
+              .form-group.row.d-flex.justify-content-center
                 label.col-md-3.col-form-label.font-weight-bold.text-right(for='price') Цена:
-                .col-md-7
+                .col-md-7.d-flex.justify-content-center
                   input.form-control(type='number', step='any', name='price', id='price', value=`${offer.price}`)
-              .form-group.row
+              .form-group.row.d-flex.justify-content-center
                 label.col-md-3.col-form-label.font-weight-bold.text-right(for='count') Налични бройки:
-                .col-md-7
+                .col-md-7.d-flex.justify-content-center
                   input.form-control(type='number', name='count', id='count', value=`${offer.count}`)
-              .form-group.row
+              .form-group.row.d-flex.justify-content-center
                 label.col-md-3.col-form-label.font-weight-bold.text-right(for='startTime') Начален час:
                 .col-md-7
                   input.form-control(type='datetime', name='startTime', id='startTime', value=`${offer.startTime}`)
-              .form-group.row
+              .form-group.row.d-flex.justify-content-center
                 label.col-md-3.col-form-label.font-weight-bold.text-right(for='endTime') Краен час:
                 .col-md-7
                   input.form-control(type='datetime', name='endTime', id='endTime', value=`${offer.endTime}`)
-              .form-group.row
+              .form-group.row.d-flex.justify-content-center
                 label.col-md-3.col-form-label.font-weight-bold.text-right(for='image') Картинка (url):
                 .col-md-7
                   input.form-control(type='url', name='image', id='image', value=`${offer.image}`)
-              .form-group.form-check.form-check-inline
-                .col-md-4
+              .form-group.form-check.form-check-inline.ml-5
+                .col-md-4.d-flex.justify-content-center.ml-3
                   - if (offer.features.includes('vegan'))
                     input.form-check-input(type='checkbox', name='vegan', id='vegan', checked)
                   - else
                     input.form-check-input(type='checkbox', name='vegan', id='vegan')
                   label.mr-2.form-check-label(for='vegan') Веган
-                .col-md-4
+                .col-md-4.d-flex.justify-content-center.ml-3
                   - if (offer.features.includes('keto'))
                     input.form-check-input(type='checkbox', name='keto', id='keto', checked)
                   - else
                     input.form-check-input(type='checkbox', name='keto', id='keto')
                   label.mr-2.form-check-label(for='keto') Кето
-                .col-md-4
+                .col-md-4.d-flex.justify-content-center.ml-3
                   - if (offer.features.includes('shop'))
                     input.form-check-input(type='checkbox', name='shop', id='shop', checked)
                   - else
                     input.form-check-input(type='checkbox', name='shop', id='shop')
-                  label.mr-2.form-check-label(for='shop') Продукти от магазин
-              .form-group.form-check.form-check-inline
-                .col-md-6
+                  label.mr-2.form-check-label(for='shop') Продукти
+              .form-group.form-check.form-check-inline.ml-5
+                .col-md-4.d-flex.justify-content-center.ml-3
                   - if (offer.features.includes('gluten'))
                     input.form-check-input(type='checkbox', name='gluten', id='gluten', checked)
                   - else
                     input.form-check-input(type='checkbox', name='gluten', id='gluten')
                   label.mr-2.form-check-label(for='gluten') Без глутен
-                .col-md-6
+                .col-md-4.d-flex.justify-content-center.ml-3
                   - if (offer.features.includes('sugar'))
                     input.form-check-input(type='checkbox', name='sugar', id='sugar', checked)
                   - else
                     input.form-check-input(type='checkbox', name='sugar', id='sugar')
                   label.mr-2.form-check-label(for='sugar') Без захар
-              .form-group.row
-                button.btn.btn-primary.m-4(type="submit", id="btnUpdateOffer", href="#", data-toggle="modal", data-target="#modal-offer") Обновяване
+              .form-group.row.d-flex.justify-content-center
+                button.btn.btn-primary.mt-4(type="submit", id="btnUpdateOffer", href="#", data-toggle="modal", data-target="#modal-offer") Обновяване
                 //- script.
                 //-   document.getElementById("btnUpdateOffer").onclick = () => {
                 //-     fillOfferSummary();
@@ -118,21 +118,18 @@ block content
               label.col-md-3.col-form-label.font-weight-bold.text-right(for='address') Адрес:
               .col-md-7
                 input.form-control(type='address', name='address', id='address', value=`${restaurant.address}`)
-            
-
-
+          
             .row
               .col-3
-              .card.pt-0.ml-3.profile-card.col-4(style="background-color: rgb(234, 231, 227); border: 1px, solid, black")
-                .card-body.white-text.font-24(id="offer-summary")
-                  script fillOfferSummary();
-              .col-1
-              .col-2
+              .col-5
+                .card.pt-0.ml-3.profile-card.col-11(style="background-color: rgb(234, 231, 227); border: 1px, solid, black")
+                  .card-body.white-text.font-24(id="offer-summary")
+                    script fillOfferSummary();
+              .col-2.d-flex.justify-content-center
                 button.btn.btn-primary(href="#", data-toggle="modal", data-target="#modal-offer", type="button") Редакция на оферта
 
-
             .form-group.mt-4
-              .offset-md-3.col-md-12.pl-2
+              .d-flex.justify-content-center
                 button.col-md-3.btn.btn-primary(type='submit')
                   i.far
                   | Запази промените
