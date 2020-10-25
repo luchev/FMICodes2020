@@ -166,6 +166,7 @@ app.get('/offers', offersController.getOffers);
 
 app.get('/restaurants/:id', restaurantController.getRestaurant);
 app.post( '/restaurants/:id', restaurantController.postRestaurant );
+app.post( '/offers/update', restaurantController.postOffer );
 
 
 /**

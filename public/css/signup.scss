@@ -35,8 +35,7 @@
 
 .tab-buttons{
     position: relative;
-    top:-0.75rem;
-    left:-0.75rem;
+    width: 100%;
 }
 
 #btn1{
@@ -51,8 +50,8 @@
     }
     
     position: relative;
-    top:-0.75rem;
-    left:-0.75rem;
+    // top:-0.75rem;
+    // left:-0.75rem;
 }
 
 #btn2{
@@ -67,6 +66,7 @@
     }
 
     position: relative;
-    top:-0.75rem;
-    right:-0.75rem;
+    // top:-0.75rem;
+    position: absolute;
+    right:0;
 }
