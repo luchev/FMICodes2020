@@ -8,17 +8,14 @@ const { callbackPromise } = require('nodemailer/lib/shared');
  * GET /orders
  */
 exports.getOrders = async (req, res) => {
-  console.log(12341234)
   User.findById(req.user._id, (err, foundUser) => {
     if (err) { return done(err); }
     user = foundUser
   }).then((user) => {
-    console.log(user)
     if(user.restaurantExtension.restaurantName !== null) { 
         Order.find( {restaurant: req.user._id}, (err, foundOrders) => {
           if (err) { return done(err); }
           orders = foundOrders;
-          console.log(orders)
         }).then((orders) => {
 
           var users = [], offers = [];
@@ -55,7 +52,6 @@ exports.getOrders = async (req, res) => {
       }).then((orders) => {
         var restaurants = [], offers = [];
         var promises = []
-        console.log(987654321)
         for(var i=0 in orders) { 
           promises.push(User.findById(orders[i].restaurant  , (err, foundUser) => {
             if (err) { return done(err); }
@@ -68,8 +64,7 @@ exports.getOrders = async (req, res) => {
             offers.push(offer);
           }));
         }
-        Promise.all(promises).then(() => {
-          console.log(orders);
+        Promise.all(promises).then(() => {  
           res.render('orders', {
             title: 'Orders',
             orders: orders,
@@ -81,6 +76,22 @@ exports.getOrders = async (req, res) => {
         })
       });
     }
+  });
+}
+
+exports.changeStatus = (req, res) => {
+  Order.findById(req.body.orderId, (err, order) => {
+    if (err) { return done(err); }
+      return order;
+  }).then((value) => {
+    if(value.state == 'active')
+      Order.findByIdAndUpdate(req.body.orderId, {state: 'paid'}).then(() => {
+        res.redirect('/orders');
+      });
+    else 
+      Order.findByIdAndUpdate(req.body.orderId, {state: 'active'}).then(() => {
+        res.redirect('/orders');
+      })
   });
 }
 
@@ -109,8 +120,6 @@ exports.postOrder = async (req, res) => {
     offer = foundOffer;
   }).then((offer) => {
 
-    console.log(offer)
-
     var currentTime = new Date();
     if(currentTime >= offer.endTime) {
       validationErrors.push({ msg: 'The offer has already expired.' });
@@ -131,7 +140,6 @@ exports.postOrder = async (req, res) => {
         state: 'active'
       }); 
       var newCount = offer.count - 1;
-      console.log(newCount)
       Offer.update( {_id: offer.id}, {count: newCount}).then( ()=> 
         {
           order.save();
