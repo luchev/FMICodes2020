@@ -20,8 +20,6 @@ exports.postReview = ( req, res, next ) => {
     score: req.body.score,
   } );
 
-  console.log(req.user._id);
-
   review.save();
   res.redirect('/restaurants/' + req.body.restaurantId)
 }; 

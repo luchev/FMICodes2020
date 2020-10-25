@@ -148,6 +148,7 @@ app.post('/signup', userController.postSignup);
 app.get('/orders', orderController.getOrders);
 app.get('/order/:id', orderController.getOrderById);
 app.post('/order', orderController.postOrder);
+app.post('/orders/changestatus', orderController.changeStatus);
 
 app.get('/review', reviewController.reviewForm);
 app.post('/review/:id', reviewController.postReview);
