@@ -12,7 +12,7 @@ exports.getOrders = async (req, res) => {
     if (err) { return done(err); }
     user = foundUser
   }).then((user) => {
-    if(user.restaurantExtension.restaurantName !== null) { 
+      if(user.restaurantExtension !== undefined && user.restaurantExtension.restaurantName !== undefined) { 
         Order.find( {restaurant: req.user._id}, (err, foundOrders) => {
           if (err) { return done(err); }
           orders = foundOrders;
