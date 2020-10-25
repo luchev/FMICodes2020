@@ -1,16 +1,19 @@
+block head
+  link(rel="stylesheet" type="text/css" href="css/homepage.css")
+
 .navbar.navbar-light.fixed-top.navbar-expand-lg.bg-light(style="background: linear-gradient(40deg,#ffd86f,#fc6262) !important;")
   .container
     a.navbar-brand.text-white(href='/')
-      i.fas.fa-tree.text-white
-      | Extra Meal
+      img.logo-image(src="assets/img/logo_no_bg.png")
     button.navbar-toggler.navbar-dark(type='button', data-toggle='collapse', data-target='.navbar-collapse', style="background: linear-gradient(90deg,rgb(240, 130, 104),#fc6262) !important;")
       span.sr-only Toggle navigation
       span.navbar-toggler-icon
     .collapse.navbar-collapse
       ul.nav.navbar-nav
         li.nav-item(class=(title === 'Offers') ? 'active' : undefined)
-          a.nav-link(href='/offers') Restaurants
+          a.nav-link(href='/offers') Ресторанти
       ul.nav.navbar-nav.ml-auto
+        li.fas.fa-info-circle.nav-item.text-white.mr-3(style="font-size: 50; margin-top: 0.8rem")
         if !user
           li.nav-item(class=(title === 'Login') ? 'active' : undefined)
             a.nav-link.text-white(href='/login') Влез
