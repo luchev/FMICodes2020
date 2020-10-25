@@ -8,73 +8,80 @@ const { callbackPromise } = require('nodemailer/lib/shared');
  * GET /orders
  */
 exports.getOrders = async (req, res) => {
-
-  let user 
-  await User.findById(req.user._id, (err, foundUser) => {
+  console.log(12341234)
+  User.findById(req.user._id, (err, foundUser) => {
     if (err) { return done(err); }
     user = foundUser
-  });
-  if(user.restaurantExtension !== undefined && user.restaurantExtension.restaurantName !== undefined) { 
-    let orders  
-    await Order.find( {restaurant: req.user._id}, (err, foundOrders) => {
+  }).then((user) => {
+    console.log(user)
+    if(user.restaurantExtension.restaurantName !== null) { 
+        Order.find( {restaurant: req.user._id}, (err, foundOrders) => {
+          if (err) { return done(err); }
+          orders = foundOrders;
+          console.log(orders)
+        }).then((orders) => {
+
+          var users = [], offers = [];
+          var promises = [];
+          for(var i=0 in orders) { 
+            promises.push(User.findById(orders[i].user, (err, foundUser) => {
+              if (err) { return done(err); }
+              var user = foundUser
+              users.push(user);
+            }));
+            promises.push(Offer.findById(orders[i].offer, (err, foundOffer) => {
+              if (err) { return done(err); }
+              var offer = foundOffer;
+              offers.push(offer);
+            }));
+          }
+          Promise.all(promises).then(() => {
+            res.render('orders', {
+              title: 'Orders',
+              orders: orders,
+              X: offers,
+              users: users,
+              len: orders.length,
+              isRestaurant: true
+            });
+          })
+      });
+    }
+    else {
+      let orders 
+      Order.find( {user: req.user._id}, (err, foundOrders) => {
         if (err) { return done(err); }
         orders = foundOrders;
+      }).then((orders) => {
+        var restaurants = [], offers = [];
+        var promises = []
+        console.log(987654321)
+        for(var i=0 in orders) { 
+          promises.push(User.findById(orders[i].restaurant  , (err, foundUser) => {
+            if (err) { return done(err); }
+            var restaurant = foundUser;
+            restaurants.push(restaurant);
+          }));
+          promises.push(Offer.findById(orders[i].offer, (err, foundOffer) => {
+            if (err) { return done(err); }
+            offer = foundOffer;
+            offers.push(offer);
+          }));
+        }
+        Promise.all(promises).then(() => {
+          console.log(orders);
+          res.render('orders', {
+            title: 'Orders',
+            orders: orders,
+            restaurants: restaurants,
+            X: offers,
+            len: orders.length,
+            isRestaurant: false
+          })
+        })
       });
-    var users = [], offers = [];
-    for(var i=0 in orders) { 
-      let user
-      await User.findById(orders[i].user, (err, foundUser) => {
-        if (err) { return done(err); }
-        user = foundUser
-      });
-      let offer
-      await Offer.findById(orders[i].offer, (err, foundOffer) => {
-        if (err) { return done(err); }
-        offer = foundOffer;
-      });
-      offers.push(offer);
-      users.push(user);
     }
-    res.render('orders', {
-      title: 'Orders',
-      orders: orders,
-      X: offers,
-      users: users,
-      len: orders.length,
-      isRestaurant: true
-    })
-  }
-  else {
-    let orders 
-    await Order.find( {user: req.user._id}, (err, foundOrders) => {
-      if (err) { return done(err); }
-      orders = foundOrders;
-    });
-    var restaurants = [], offers = [];
-    for(var i=0 in orders) { 
-      let restaurant
-      await User.findById(orders[i].restaurant, (err, foundUser) => {
-        if (err) { return done(err); }
-        restaurant = foundUser;
-      });
-      let offer
-      await Offer.findById(orders[i].offer, (err, foundOffer) => {
-        if (err) { return done(err); }
-        offer = foundOffer;
-      });
-      offers.push(offer);
-      restaurants.push(restaurant);
-    }
-    console.log(offers);
-    res.render('orders', {
-      title: 'Orders',
-      orders: orders,
-      restaurants: restaurants,
-      X: offers,
-      len: orders.length,
-      isRestaurant: false
-    })
-  }
+  });
 }
 
 /**
@@ -93,40 +100,44 @@ exports.getOrderById = (req, res) => {
  */
 exports.postOrder = async (req, res) => {
   const validationErrors = [];
-  console.log(131231)
-  if (req.body.userId != undefined && validator.isEmpty(req.body.userId)) validationErrors.push({ msg: 'userId cannot be blank.' });
-  if (req.body.restaurantId != undefined && validator.isEmpty(req.body.restaurantId)) validationErrors.push({ msg: 'restaurantId cannot be blank.' });
-  if (req.body.offerId != undefined && validator.isEmpty(req.body.offerId)) validationErrors.push({ msg: 'offerId cannot be blank.' });
-  let offer
-  await Offer.findById(req.body.offerId, (err, foundOffer) => {
+
+  if (req.body.userId !== undefined && validator.isEmpty(req.body.userId)) validationErrors.push({ msg: 'userId cannot be blank.' });
+  if (req.body.restaurantId !== undefined && validator.isEmpty(req.body.restaurantId)) validationErrors.push({ msg: 'restaurantId cannot be blank.' });
+  // if (req.body.offerId !== undefined && validator.isEmpty(req.body.offerId)) validationErrors.push({ msg: 'offerId cannot be blank.' });
+  Offer.findOne({restaurantId: req.body.restaurantId}, (err, foundOffer) => {
     if (err) { return done(err); }
     offer = foundOffer;
+  }).then((offer) => {
+
+    console.log(offer)
+
+    var currentTime = new Date();
+    if(currentTime >= offer.endTime) {
+      validationErrors.push({ msg: 'The offer has already expired.' });
+    }
+    if(offer.count <= 0) {
+      validationErrors.push({ msg: 'The offer was already sold out.' });
+    }
+  
+    if (validationErrors.length) {
+      req.flash('errors', validationErrors);
+      res.redirect('/restaurants/' + req.body.restaurantId);
+    }
+    else {
+      const order = new Order({
+        user: req.body.userId,
+        restaurant: req.body.restaurantId,
+        offer: offer.id,
+        state: 'active'
+      }); 
+      var newCount = offer.count - 1;
+      console.log(newCount)
+      Offer.update( {_id: offer.id}, {count: newCount}).then( ()=> 
+        {
+          order.save();
+          res.redirect('/restaurants/' + req.body.restaurantId);
+        });
+    };
   });
-  console.log(offer)
-
-  var currentTime = new Date();
-  if(currentTime >= offer.endTime) {
-    validationErrors.push({ msg: 'The offer has already expired.' });
-  }
-  if(offer.count <= 0) {
-    validationErrors.push({ msg: 'The offer was already sold out.' });
-  }
-
-  if (validationErrors.length) {
-    console.log('in the right place');
-    res.send(400, validationErrors);
-  }
-  else {
-    const order = new Order({
-      user: req.body.userId,
-      restaurant: req.body.restaurantId,
-      offer: req.body.offerId,
-      state: 'active'
-    }); 
-    var newCount = offer.count - 1;
-    await Offer.updateOne( {_id: req.body.offerId}, {count: newCount});
-    order.save();
-  };
-  res.send(200);
 }
   
