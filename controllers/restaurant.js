@@ -77,25 +77,45 @@ exports.postRestaurant = async ( req, res ) => {
 	user.restaurantExtension.yCoordinate = req.body.yCoordinate;
 	user.restaurantExtension.address = req.body.address;
 	await User.updateOne( {_id: user._id}, {restaurantExtension: user.restaurantExtension});
+	res.redirect('/restaurants/' + req.params.id);
+}
 
+/**
+ * POST /offers/:id
+ * Updates offers by id
+ */
+exports.postOffer = async ( req, res ) => {
+	let user = req.user;
 	let features = []
-	for ( let opt of possible_features) {
-		if (req.body[opt]) {
-			features.push(opt);
+	for ( let opt of possible_features ) {
+		if ( req.body[opt] ) {
+			features.push( opt );
 		}
 	}
 
+	let startTime;
+	try {
+		startTime = Date.parse( req.body.startTime );
+	} catch ( e ) {
+		startTime = Date.now();
+	}
+	let endTime;
+	try {
+		endTime = Date.parse( req.body.endTime );
+	} catch ( e ) {
+		endTime = Date.now();
+	}
 	let offerUpdate = {
 		title: req.body.title,
 		offer: req.body.offer,
 		price: req.body.price,
 		count: req.body.count,
-		startTime: Date.parse(req.body.startTime),
-		endTime: Date.parse(req.body.endTime),
+		startTime: startTime,
+		endTime: endTime,
 		image: req.body.image,
 		features: features,
 	}
 
 	await Offer.updateOne( {restaurantId: user._id}, offerUpdate );
-	res.redirect('/restaurants/' + req.params.id);
+	res.redirect( '/restaurants/' + req.user._id );
 }
