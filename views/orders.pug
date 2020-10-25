@@ -54,20 +54,25 @@ block content
                   else 
                     | Ресторант: #{restaurants[index].restaurantExtension.restaurantName}  <br> 
                   | Цена: #{X[index].price} <br>    
-                  | Статус: #{orders[index].state} <br>
+                  //- | Статус: #{orders[index].state} <br>
                   | #{orders[index].createdAt.toLocaleString()} <br>
+            if(orders[index].state == 'active')
+              .card.right-inner-card-active.rd.col-4
+                .card-body
+                  p.mt-2 Неполучено
                   if(isRestaurant)
                     form(method='POST', action=`/orders/changestatus`)
                         input(type='hidden', name='orderId', value=`${order.id}`)
                         .form-group
-                        .offset-md-9.offset-lg-9.col-md-12.pl-2
-                            button.p-1.col-md-3.btn.btn-primary(type='submit') Промени статус 
-            if(orders[index].state == 'active')
-              .card.right-inner-card-active.rd.col-4
-                .card-body
-                  p Неполучено
+                          button.p-1.mt-5.btn.btn-primary(type='submit') Промени статус
+
             else 
               .card.right-inner-card-received.rd.col-4
                 .card-body
-                  p Получено
+                  p.mt-2 Получено
+                  if(isRestaurant)
+                  form(method='POST', action=`/orders/changestatus`)
+                      input(type='hidden', name='orderId', value=`${order.id}`)
+                      .form-group
+                        button.p-1.mt-5.btn.btn-primary(type='submit') Промени статус
 
