@@ -1,9 +1,9 @@
 extends ../layout
 
 block content
-  body(style='background-image: url("../assets/FoodBackground.png") !important; background-size: cover;')
+  body(style='background-image: url("../assets/img/1_ogduQKQcAgpCEQbb3Uo0Wg.jpeg") !important; background-size: cover;')
     .card.login-page
-      .card-body.login-page
+      .card-body.login-page.text-dark
         form(method='POST')
           input(type='hidden', name='_csrf', value=_csrf)
           .form-group.row
@@ -19,7 +19,7 @@ block content
               button.col-md-3.btn.btn-primary(type='submit')
                 i.far.fa-user.fa-sm
                 | Вход
-              a.btn.btn-link(href='/forgot' style='color: white;') Забравена парола?
+              a.btn.btn-link.text-dark(href='/forgot' style='color: white;') Забравена парола?
           .form-group
             .offset-md-3.col-md-7.pl-2
               hr
