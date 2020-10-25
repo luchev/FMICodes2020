@@ -14,15 +14,19 @@ function filterMarkers() {
     // Init distances
     if ( restaurants.length > 0 && restaurants[0].distance === undefined ) {
         for ( let i = 0; i < restaurants.length; i++ ) {
-            restaurants[i].distance =measure( userPosition.lat, userPosition.lng, restaurants[i].xCoordinate, restaurants[i].yCoordinate );
+            restaurants[i].distance = measure( userPosition.lat, userPosition.lng, restaurants[i].xCoordinate, restaurants[i].yCoordinate );
             if ( isNaN( restaurants[i].distance)) {
                 restaurants[i].distance = Infinity;
             }
         }
     }
-
+    
     for ( let i = 0; i < markers.length; i++ ) {
-        if ( restaurants[i].distance <= maxDistance && restaurants[i].price <= maxPrice ) {
+        let isFeatureValid = checks.size === 0;
+        for ( let feature of restaurants[i].features ) {
+            isFeatureValid |= checks.has( feature );
+        }
+        if (restaurants[i].distance <= maxDistance && restaurants[i].price <= maxPrice && isFeatureValid) {
             markers[i].setMap( map );
         } else {
             markers[i].setMap( null );
@@ -31,14 +35,70 @@ function filterMarkers() {
 }
 
 let distanceSlider = document.getElementById( 'slider-distance' );
-distanceSlider.addEventListener( 'change', ( target ) => {
-    maxDistance = target.target.value;
+distanceSlider.addEventListener( 'change', ( e ) => {
+    maxDistance = e.target.value;
+    if (maxDistance === '3000') {
+        maxDistance = Infinity;
+    }
     filterMarkers();
 } );
 
 let priceSlider = document.getElementById( 'slider-price' );
-priceSlider.addEventListener( 'change', ( target ) => {
-    maxPrice = target.target.value;
+priceSlider.addEventListener( 'change', ( e ) => {
+    maxPrice = e.target.value;
+    if (maxPrice === '30') {
+        maxPrice = Infinity;
+    }
+    filterMarkers();
+} );
+
+let veganOption = document.getElementById('vegan-checkbox');
+veganOption.addEventListener('change', (e) => {
+    if (e.target.checked) {
+        checks.add('vegan');
+    } else {
+        checks.delete('vegan');
+    }
+    filterMarkers();
+});
+
+let ketoOption = document.getElementById( 'keto-checkbox' );
+ketoOption.addEventListener( 'change', ( e ) => {
+    if ( e.target.checked ) {
+        checks.add( 'keto' );
+    } else {
+        checks.delete( 'keto' );
+    }
+    filterMarkers();
+} );
+
+let sugarOption = document.getElementById( 'sugar-free-checkbox' );
+sugarOption.addEventListener( 'change', ( e ) => {
+    if ( e.target.checked ) {
+        checks.add( 'sugar' );
+    } else {
+        checks.delete( 'sugar' );
+    }
+    filterMarkers();
+} );
+
+let glutenOption = document.getElementById( 'gluten-free-checkbox' );
+glutenOption.addEventListener( 'change', ( e ) => {
+    if ( e.target.checked ) {
+        checks.add( 'gluten' );
+    } else {
+        checks.delete( 'gluten' );
+    }
+    filterMarkers();
+} );
+
+let shopOption = document.getElementById( 'shop-checkbox' );
+shopOption.addEventListener( 'change', ( e ) => {
+    if ( e.target.checked ) {
+        checks.add( 'shop' );
+    } else {
+        checks.delete( 'shop' );
+    }
     filterMarkers();
 } );
 
@@ -128,20 +188,23 @@ function initMap() {
         if (!sc.count) {
             sc.count = 'Няма';
         }
+        if (!sc.features) {
+            sc.features = [];
+        }
         var restaurantPopupContent = `<h4>${sc.restaurantName}</h4>Рейтинг: ${sc.score}<br>Цена: ${sc.price}<br>Налични: ${sc.count}<br><a href="/restaurants/${sc.id}">Поръчай сега!</a>`;
         const infowindow = new google.maps.InfoWindow( {
             content: restaurantPopupContent,
         } );
         let icon = 'marker_red_restaurant.png';
-        if (sc.features && sc.features.includes('shop')) {
+        if (sc.features.includes('shop')) {
             icon = 'marker_shop.png';
-        } else if ( sc.features && sc.features.includes( 'vegan' ) ) {
+        } else if (sc.features.includes( 'vegan' ) ) {
             icon = 'marker_green_restaurant.png';
-        } else if ( sc.features && sc.features.includes( 'keto' ) ) {
+        } else if (sc.features.includes( 'keto' ) ) {
             icon = 'marker_blue_restaurant.png';
-        } else if ( sc.features && sc.features.includes( 'sugar' ) ) {
+        } else if (sc.features.includes( 'sugar' ) ) {
             icon = 'marker_cyan_restaurant.png';
-        } else if ( sc.features && sc.features.includes( 'gluten' ) ) {
+        } else if (sc.features.includes( 'gluten' ) ) {
             icon = 'marker_pink_restaurant.png';
         }
         var marker = new google.maps.Marker( {
