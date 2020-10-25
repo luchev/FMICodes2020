@@ -7,14 +7,19 @@ var maxPrice = Infinity;
 var checks = new Set();
 
 function filterMarkers() {
-    if ( !userPosition || !restaurants ) {
+    if ( !restaurants ) {
         return;
     }
 
     // Init distances
     if ( restaurants.length > 0 && restaurants[0].distance === undefined ) {
         for ( let i = 0; i < restaurants.length; i++ ) {
-            restaurants[i].distance = measure( userPosition.lat, userPosition.lng, restaurants[i].xCoordinate, restaurants[i].yCoordinate );
+            if (userPosition) {
+                restaurants[i].distance = measure( userPosition.lat, userPosition.lng, restaurants[i].xCoordinate, restaurants[i].yCoordinate );
+            }
+            else {
+                restaurants[i].distance = 0;
+            }
             if ( isNaN( restaurants[i].distance)) {
                 restaurants[i].distance = Infinity;
             }
